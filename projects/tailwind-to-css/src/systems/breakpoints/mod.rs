@@ -20,6 +20,13 @@ impl BreakPointSystem {
         new
     }
 
+    pub fn try_get_width(&self, name: &str) -> Result<usize, String> {
+        match self.inner.get(name) {
+            Some(bp) => Ok(bp.width),
+            None => Err(format!("no such breakpoint: {}", name)),
+        }
+    }
+
     #[inline]
     pub fn register(&mut self, name: String, width: usize) -> Option<BreakPoint> {
         self.inner.insert(name, BreakPoint { width })
