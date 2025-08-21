@@ -14,7 +14,7 @@ impl Display for LengthUnit {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
             Self::Fraction(a, b) => write!(f, "{}/{}", a, b),
-            Self::Unit(a, b) => write!(f, "{}{}", *a as usize, b),
+            Self::Unit(a, b) => write!(f, "{}{}", a, b),
         }
     }
 }

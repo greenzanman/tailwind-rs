@@ -7,6 +7,7 @@ pub struct TailwindRounded {
     size: LengthUnit,
 }
 
+// NOT SUPPORTED: https://tailwindcss.com/docs/border-radius#using-logical-properties
 #[derive(Copy, Clone, Debug)]
 enum RoundedKind {
     Rounded,
@@ -99,18 +100,19 @@ impl TailwindRounded {
         if arbitrary.is_some() {
             return Ok(Self { kind, size: arbitrary.as_length_or_fraction()? });
         }
-        let rem = |n| Ok(Self { kind, size: LengthUnit::rem(n) });
-        let px = |n| Ok(Self { kind, size: LengthUnit::px(n) });
         match pattern {
-            ["none"] => px(0.0),
-            ["sm"] => rem(0.125),
-            [] => rem(0.25),
-            ["md"] => rem(0.375),
-            ["lg"] => rem(0.5),
-            ["xl"] => rem(0.75),
-            ["2xl"] => rem(1.0),
-            ["3xl"] => rem(1.5),
-            ["full"] => px(9999.0),
+            ["none"] => Ok(Self { kind, size: LengthUnit::px(0.0) }),
+            ["xs"] => Ok(Self { kind, size: LengthUnit::rem(0.125) }),
+            ["sm"] => Ok(Self { kind, size: LengthUnit::rem(0.25) }),
+            ["md"] => Ok(Self { kind, size: LengthUnit::rem(0.375) }),
+            ["lg"] => Ok(Self { kind, size: LengthUnit::rem(0.5) }),
+            ["xl"] => Ok(Self { kind, size: LengthUnit::rem(0.75) }),
+            ["2xl"] => Ok(Self { kind, size: LengthUnit::rem(1.0) }),
+            ["3xl"] => Ok(Self { kind, size: LengthUnit::rem(1.5) }),
+            ["4xl"] => Ok(Self { kind, size: LengthUnit::rem(2.0) }),
+            ["full"] => Ok(Self { kind, size: LengthUnit::px(9999.0) }),  // NOTE:  official is calc(infinity * 1px);
+            [] if arbitrary.is_none() => Ok(Self { kind, size: LengthUnit::rem(0.25) }),
+            [] if arbitrary.as_str().starts_with(|c: char| c.is_numeric()) => Ok(Self { kind, size: LengthUnit::from(arbitrary.as_length()?) }),
             _ => syntax_error!(""),
         }
     }

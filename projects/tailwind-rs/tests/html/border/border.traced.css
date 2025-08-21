@@ -185,10 +185,23 @@
   outline-width: unset;
 }
 
+.rounded-\[0\.25rem\] {
+  border-radius: .25rem;
+}
+
 .rounded-\[0px\] {
   border-radius: 0;
 }
 
-.rounded-\[0rem\] {
-  border-radius: .25rem;
+.rounded-\[2\.3rem\] {
+  border-radius: 2.3rem;
+}
+
+.rounded-\[8px\] {
+  border-radius: 8px;
+}
+
+.rounded-t-\[0\.5rem\] {
+  border-top-left-radius: .5rem;
+  border-top-right-radius: .5rem;
 }

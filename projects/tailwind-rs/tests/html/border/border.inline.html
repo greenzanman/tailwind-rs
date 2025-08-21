@@ -1,15 +1,21 @@
 
 <html lang="en">
 <head>
-    <meta charset="UTF-8"></meta>
-    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg"></link>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <meta charset="UTF-8">
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Border tests</title>
 </head>
 <body>
 <!-- https://tailwindcss.com/docs/border-radius -->
 <div style="border-radius:0px;"></div>
 <div style="border-radius:0.25rem;"></div>
+<div style="border-top-left-radius:0.5rem;border-top-right-radius:0.5rem;"></div>
+<div style="border-radius:0.25rem;"></div>
+<div style="border-radius:2.3rem;"></div>
+<div style="border-radius:8px;"></div>
+<!-- NOT SUPPORTED: https://tailwindcss.com/docs/border-radius#using-logical-properties -->
+<div class="rounded-s-lg"></div> 
 <!-- https://tailwindcss.com/docs/border-width -->
 <div style="border-width:1px;"></div>
 <div style="border-width:0px;"></div>
