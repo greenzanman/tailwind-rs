@@ -1,4 +1,37 @@
 macro_rules! keyword_instance {
+    // ARM 1: Handles types that have special case(s) for input -> output mappings.
+    //  - example: keyword_instance!(TailwindDisplay => "display", { "hidden" => "none" });
+    ($t:ty => $a:literal, { $($input:literal => $output:literal),* }) => {
+        impl<T> From<T> for $t
+        where
+            T: Into<String>,
+        {
+            fn from(input: T) -> Self {
+                let s: String = input.into();
+                // Match the input string against the provided mappings
+                let value = match s.as_str() {
+                    $(
+                        $input => $output.to_string(),
+                    )*
+                    // If no match, use the original string
+                    _ => s,
+                };
+                Self { kind: StandardValue::from(value) }
+            }
+        }
+
+        impl TailwindInstance for $t {
+            fn attributes(&self, _: &TailwindBuilder) -> CssAttributes {
+                css_attributes! {
+                    $a => self.kind.get_properties()
+                }
+            }
+        }
+    };
+
+    // ARM 2: The original macro for types without special mappings.
+    // NOTE: This comes second, bc macros match the most specific rule first
+    //   - example: keyword_instance!(TailwindDisplay => "display");
     ($t:ty => $a:literal) => {
         impl<T> From<T> for $t
         where
@@ -8,6 +41,7 @@ macro_rules! keyword_instance {
                 Self { kind: StandardValue::from(input.into()) }
             }
         }
+        // Same implementation
         impl TailwindInstance for $t {
             fn attributes(&self, _: &TailwindBuilder) -> CssAttributes {
                 css_attributes! {

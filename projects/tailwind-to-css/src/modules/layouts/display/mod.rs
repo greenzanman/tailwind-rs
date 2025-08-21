@@ -6,7 +6,13 @@ pub struct TailwindDisplay {
     kind: StandardValue,
 }
 
-crate::macros::sealed::keyword_instance!(TailwindDisplay => "display");
+// 1) Call TailwindDisplay::from("{keyword}").boxed()
+// 2) This keyword_instance! macro will generate:
+//       CSS classnames as ".display-{keyword}",
+//       and CSS rules as ".display-{keyword} { display: {keyword}; }"
+//  - EXAMPLE: TailwindDisplay::from("block") will create "display-block { display: block; }"
+//  - SPECIAL CASE: "hidden" turns into "display-none { display: none; }"
+crate::macros::sealed::keyword_instance!(TailwindDisplay => "display", { "hidden" => "none" });
 
 impl Display for TailwindDisplay {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
@@ -38,7 +44,7 @@ impl TailwindDisplay {
             "inline-flex",
             "inline-grid",
             "list-item",
-            "none",
+            "hidden",
             "revert",
             "table",
             "table-row",

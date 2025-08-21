@@ -170,16 +170,16 @@
   display: flex;
 }
 
-.display-hidden {
-  display: hidden;
-}
-
 .display-inline {
   display: inline;
 }
 
 .display-inline-block {
   display: inline-block;
+}
+
+.display-none {
+  display: none;
 }
 
 .fixed {
