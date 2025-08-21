@@ -13,6 +13,7 @@ impl FontSystem {
     fn insert_builtin_size(&mut self) {
         self.insert_size("xs", FontSize::new(0.75, 1.0));
         self.insert_size("sm", FontSize::new(0.875, 1.25));
+        self.insert_size("base", FontSize::new(1.0, 1.5));
         self.insert_size("md", FontSize::new(1.0, 1.5));
         self.insert_size("lg", FontSize::new(1.125, 1.75));
         self.insert_size("xl", FontSize::new(1.25, 1.75));

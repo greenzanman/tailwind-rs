@@ -23,7 +23,7 @@ pub use self::{
 };
 use crate::{
     css_attributes, syntax_error, CssAttributes, LengthUnit, Result, StandardValue, TailwindArbitrary, TailwindBreakAfter,
-    TailwindBreakBefore, TailwindBreakInside, TailwindBuilder, TailwindColor, TailwindInstance,
+    TailwindBreakBefore, TailwindBreakInside, TailwindBuilder, TailwindColor, TailwindInstance, UnitValue
 };
 use std::{
     collections::BTreeSet,
