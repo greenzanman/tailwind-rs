@@ -52,7 +52,6 @@ impl TailwindFontSize {
     // https://tailwindcss.com/docs/font-size
     pub fn parse(pattern: &[&str], arbitrary: &TailwindArbitrary) -> Result<Self> {
         let kind = UnitValue::positive_parser("text-size", Self::check_valid_keyword, true, false, false)(pattern, arbitrary)?;
-        eprintln!("Parsed font size: {}", kind);
         Ok(Self { kind })
     }
 
