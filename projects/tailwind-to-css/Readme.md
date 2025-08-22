@@ -1,3 +1,12 @@
+this is a fork of taikwindrs
+
+link to original repo: https://github.com/oovm/tailwind-rs
+
+the original author can no longer access crates, and encouraged forking: 
+[link for more info](https://github.com/oovm/tailwind-rs/issues/26#issuecomment-2711769754)
+
+
+
 # Tailwind CSS
 
 **Tailwind style tracer, JIT + AOT Interpreter!**

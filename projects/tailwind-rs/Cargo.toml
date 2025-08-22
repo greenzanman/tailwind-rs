@@ -16,7 +16,7 @@ itertools = "0.11.0"
 log = "0.4.20"
 xxhash-rust = "0.8.7"
 
-[dependencies.tailwind-css]
+[dependencies.tailwind-css-fixes]
 version = "0.12.*"
 path = "../tailwind-to-css"
 features = ["compile_time"]
