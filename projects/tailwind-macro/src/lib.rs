@@ -14,7 +14,7 @@ use syn::{
     parse::{Parse, ParseStream, Result},
     LitStr,
 };
-use tailwind_css::TailwindBuilder;
+use tailwind_css_fixes::TailwindBuilder;
 
 use self::inline::Inlined;
 
