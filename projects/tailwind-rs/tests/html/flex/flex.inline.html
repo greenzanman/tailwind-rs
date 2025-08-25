@@ -1,9 +1,9 @@
 
 <html lang="en">
 <head>
-    <meta charset="UTF-8"></meta>
-    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg"></link>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <meta charset="UTF-8">
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flexbox tests</title>
 </head>
 <body>
@@ -83,10 +83,16 @@
 <div style="grid-template-columns:unset;"></div>
 <!-- https://tailwindcss.com/docs/grid-column -->
 <div style="grid-column:auto;"></div>
+<div style="grid-column-start:3;"></div>
+<div style="grid-column-end:3;"></div>
+<div style="grid-column:span 3 / span 3;"></div>
 <!-- https://tailwindcss.com/docs/grid-template-rows -->
 <div style="grid-template-rows:repeat(1,minmax(0,1fr));"></div>
 <!-- https://tailwindcss.com/docs/grid-row -->
 <div style="grid-row:auto;"></div>
+<div style="grid-row-start:3;"></div>
+<div style="grid-row-end:3;"></div>
+<div style="grid-row:span 3 / span 3;"></div>
 <!-- https://tailwindcss.com/docs/grid-auto-flow -->
 <div style="grid-auto-flow:row;"></div>
 <div style="grid-auto-flow:column;"></div>

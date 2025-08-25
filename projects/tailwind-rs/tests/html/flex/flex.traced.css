@@ -90,8 +90,20 @@
   grid-auto-flow: column dense;
 }
 
+.col-end-3 {
+  grid-column-end: 3;
+}
+
+.col-span-3 {
+  grid-column: span 3 / span 3;
+}
+
 .col-span-auto {
   grid-column: auto;
+}
+
+.col-start-3 {
+  grid-column-start: 3;
 }
 
 .content-align-start {
@@ -270,8 +282,20 @@
   grid-auto-flow: row dense;
 }
 
+.row-end-3 {
+  grid-row-end: 3;
+}
+
+.row-span-3 {
+  grid-row: span 3 / span 3;
+}
+
 .row-span-auto {
   grid-row: auto;
+}
+
+.row-start-3 {
+  grid-row-start: 3;
 }
 
 .self-start {
