@@ -234,6 +234,26 @@
   flex-grow: unset;
 }
 
+.items-baseline {
+  align-items: baseline;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.items-end {
+  align-items: end;
+}
+
+.items-start {
+  align-items: start;
+}
+
+.items-stretch {
+  align-items: stretch;
+}
+
 .justify-content-start {
   justify-content: start;
 }
