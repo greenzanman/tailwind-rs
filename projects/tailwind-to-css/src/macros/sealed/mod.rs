@@ -1,7 +1,7 @@
 macro_rules! keyword_instance {
     // ARM 1: Handles types that have special case(s) for input -> output mappings.
     //  - example: keyword_instance!(TailwindDisplay => "display", { "hidden" => "none" });
-    ($t:ty => $a:literal, { $($input:literal => $output:literal),* }) => {
+    ($t:ty => $a:literal, { $($input:literal => $output:literal),* $(,)? }) => {
         impl<T> From<T> for $t
         where
             T: Into<String>,
