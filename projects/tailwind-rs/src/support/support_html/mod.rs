@@ -1,5 +1,5 @@
 use log::error;
-use tailwind_css::{CssInlineMode, TailwindBuilder};
+use tailwind_css_fixes::{CssInlineMode, TailwindBuilder};
 use tl::{parse, Bytes, Node, ParserOptions};
 
 use crate::{config::HtmlConfig, CLIConfig, Result};

@@ -15,7 +15,7 @@ mod config;
 mod processor;
 mod support;
 
-pub use tailwind_css::{CssInlineMode, TailwindBuilder};
+pub use tailwind_css_fixes::{CssInlineMode, TailwindBuilder};
 
 #[cfg(test)]
 mod lib_tests {

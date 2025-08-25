@@ -1,5 +1,5 @@
 use std::collections::HashSet;
-use tailwind_css::CssInlineMode;
+use tailwind_css_fixes::CssInlineMode;
 
 /// The `Tailwind` configuration.
 #[derive(Debug, Default)]

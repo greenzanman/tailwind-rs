@@ -1,4 +1,4 @@
-use tailwind_css::{CssInlineMode, TailwindBuilder};
+use tailwind_css_fixes::{CssInlineMode, TailwindBuilder};
 use tailwind_rs::CLIConfig;
 
 mod accessibility;
