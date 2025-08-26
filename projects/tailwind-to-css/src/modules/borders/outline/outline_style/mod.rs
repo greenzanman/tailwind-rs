@@ -37,6 +37,9 @@ impl TailwindInstance for TailwindOutlineStyle {
         match &self.kind {
             StandardValue::Keyword(s) => match s.as_str() {
                 "<NONE>" => css_attributes! {
+                    "outline-style" => "none"
+                },
+                "hidden" => css_attributes! {
                     "outline" => "2px solid transparent",
                     "outline-offset" => "2px"
                 },
