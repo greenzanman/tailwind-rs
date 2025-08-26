@@ -26,7 +26,7 @@ impl LengthUnit {
         Ok(Self::radio(a as u32, b as u32))
     }
     pub fn parse_length(input: &str) -> Result<Self> {
-        let valid = (unit("px"), unit("em"), unit("rem"), unit("%"));
+        let valid = (unit("px"), unit("em"), unit("rem"), unit("%"), unit("vh"), unit("vw"));
         let (f, unit) = tuple((parse_f32, alt(valid)))(input)?.1;
         Ok(Self::Unit(f, unit))
     }
@@ -46,6 +46,12 @@ impl LengthUnit {
     }
     pub fn percent(x: f32) -> Self {
         Self::Unit(x, "%")
+    }
+    pub fn vh(x: f32) -> Self {
+        Self::Unit(x, "vh")
+    }
+    pub fn vw(x: f32) -> Self {
+        Self::Unit(x, "vw")
     }
     pub fn radio(a: u32, b: u32) -> Self {
         if b.eq(&0) {
