@@ -38,6 +38,10 @@
   bottom: 1px;
 }
 
+.bottom-7 {
+  bottom: 1.75rem;
+}
+
 .box-border {
   box-sizing: border-box;
 }
@@ -186,6 +190,26 @@
   display: none;
 }
 
+.end-1\/1 {
+  end: 100%;
+}
+
+.end-1\/3 {
+  end: 33.3333%;
+}
+
+.end-1px {
+  end: 1px;
+}
+
+.end-7 {
+  end: 1.75rem;
+}
+
+.end-auto {
+  end: auto;
+}
+
 .fixed {
   position: fixed;
 }
@@ -270,6 +294,10 @@
 
 .left-1px {
   left: 1px;
+}
+
+.left-7 {
+  left: 1.75rem;
 }
 
 .object-1 {
@@ -404,6 +432,30 @@
   right: 1px;
 }
 
+.right-7 {
+  right: 1.75rem;
+}
+
+.start-1\/1 {
+  start: 100%;
+}
+
+.start-1\/3 {
+  start: 33.3333%;
+}
+
+.start-1px {
+  start: 1px;
+}
+
+.start-7 {
+  start: 1.75rem;
+}
+
+.start-auto {
+  start: auto;
+}
+
 .static {
   position: static;
 }
@@ -414,6 +466,10 @@
 
 .top-1px {
   top: 1px;
+}
+
+.top-7 {
+  top: 1.75rem;
 }
 
 .visible {
