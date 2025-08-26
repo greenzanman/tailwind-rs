@@ -16,7 +16,7 @@ impl Display for TailwindEnd {
 impl TailwindInstance for TailwindEnd {
     fn attributes(&self, _: &TailwindBuilder) -> CssAttributes {
         css_attributes! {
-            "end" => self.kind.get_properties_rem()
+            "inset-inline-end" => self.kind.get_properties_rem()
         }
     }
 }

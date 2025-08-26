@@ -16,7 +16,7 @@ impl Display for TailwindStart {
 impl TailwindInstance for TailwindStart {
     fn attributes(&self, _: &TailwindBuilder) -> CssAttributes {
         css_attributes! {
-            "start" => self.kind.get_properties_rem()
+            "inset-inline-start" => self.kind.get_properties_rem()
         }
     }
 }
