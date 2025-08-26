@@ -23,7 +23,7 @@ impl LengthUnit {
     /// <https://developer.mozilla.org/en-US/docs/Web/CSS/length#syntax>
     pub fn parse_faction(input: &str) -> Result<Self> {
         let (a, b) = parse_fraction(input)?.1;
-        Ok(Self::radio(a as u32, b as u32))
+        Ok(Self::ratio(a as u32, b as u32))
     }
     pub fn parse_length(input: &str) -> Result<Self> {
         let valid = (unit("px"), unit("em"), unit("rem"), unit("%"), unit("vh"), unit("vw"));
@@ -53,7 +53,7 @@ impl LengthUnit {
     pub fn vw(x: f32) -> Self {
         Self::Unit(x, "vw")
     }
-    pub fn radio(a: u32, b: u32) -> Self {
+    pub fn ratio(a: u32, b: u32) -> Self {
         if b.eq(&0) {
             return Self::Fraction(0, 1);
         }

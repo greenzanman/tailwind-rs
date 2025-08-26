@@ -16,7 +16,7 @@ pub(crate) fn get_kind_px_full_auto_fact(
 ) -> Result<UnitValue> {
     let kind = match pattern {
         ["px"] => UnitValue::px(1.0),
-        ["full"] => UnitValue::radio(1, 1),
+        ["full"] => UnitValue::ratio(1, 1),
         _ => UnitValue::negative_parser(id, check_valid_auto, true, false, true)(pattern, arbitrary, negative)?,
     };
     Ok(kind)

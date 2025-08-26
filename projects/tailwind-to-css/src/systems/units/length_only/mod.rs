@@ -26,8 +26,8 @@ impl UnitValue {
     pub fn px(x: f32) -> Self {
         Self::Length(LengthUnit::px(x))
     }
-    pub fn radio(a: u32, b: u32) -> Self {
-        Self::Length(LengthUnit::radio(a, b))
+    pub fn ratio(a: u32, b: u32) -> Self {
+        Self::Length(LengthUnit::ratio(a, b))
     }
     pub fn get_properties(&self, number: impl FnOnce(&f32) -> String) -> String {
         match self {

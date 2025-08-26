@@ -39,7 +39,7 @@ impl TailwindTranslate {
         let (axis, rest) = AxisXY::split_xyn(pattern);
         let kind = match rest {
             ["px"] => UnitValue::px(1.0),
-            ["full"] => UnitValue::radio(1, 1),
+            ["full"] => UnitValue::ratio(1, 1),
             _ => UnitValue::negative_parser("translate", |_| false, true, false, false)(rest, arbitrary, negative)?,
         };
         Ok(Self { kind, axis })
