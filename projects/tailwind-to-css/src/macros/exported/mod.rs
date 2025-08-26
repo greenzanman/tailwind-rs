@@ -1,4 +1,6 @@
-/// Define a css record with a map-like syntax
+/// Define a css declaration block with a map-like syntax
+/// - CSS declaration block: collection of CSS property-value pairings
+/// - https://developer.mozilla.org/en-US/docs/Web/API/CSS_Object_Model/CSS_Declaration_Block#basic_example
 #[macro_export]
 macro_rules! css_attributes {
     () => {
