@@ -31,7 +31,7 @@ impl TailwindArbitrary {
     }
     #[inline]
     pub fn as_length_or_fraction(&self) -> Result<LengthUnit> {
-        LengthUnit::parse_length(&self.inner).or_else(|_| LengthUnit::parse_faction(&self.inner))
+        LengthUnit::parse_length(&self.inner).or_else(|_| LengthUnit::parse_fraction(&self.inner))
     }
     #[inline]
     pub fn as_angle(&self) -> Result<LengthUnit> {

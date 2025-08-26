@@ -24,7 +24,7 @@ impl TailwindInstance for TailwindTop {
 impl TailwindTop {
     /// <https://tailwindcss.com/docs/top-right-bottom-left>
     pub fn parse(pattern: &[&str], arbitrary: &TailwindArbitrary, negative: Negative) -> Result<Self> {
-        let kind = get_kind_px_full_auto_fact("top", pattern, arbitrary, negative)?;
+        let kind = get_kind_px_full_auto_fract("top", pattern, arbitrary, negative)?;
         Ok(Self { kind })
     }
     /// <https://developer.mozilla.org/en-US/docs/Web/CSS/top#syntax>

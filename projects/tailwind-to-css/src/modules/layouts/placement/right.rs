@@ -24,7 +24,7 @@ impl TailwindInstance for TailwindRight {
 impl TailwindRight {
     /// <https://tailwindcss.com/docs/top-right-bottom-left>
     pub fn parse(pattern: &[&str], arbitrary: &TailwindArbitrary, negative: Negative) -> Result<Self> {
-        let kind = get_kind_px_full_auto_fact("right", pattern, arbitrary, negative)?;
+        let kind = get_kind_px_full_auto_fract("right", pattern, arbitrary, negative)?;
         Ok(Self { kind })
     }
     /// <https://developer.mozilla.org/en-US/docs/Web/CSS/right#syntax>

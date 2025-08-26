@@ -8,7 +8,7 @@ mod left;
 mod right;
 mod top;
 
-pub(crate) fn get_kind_px_full_auto_fact(
+pub(crate) fn get_kind_px_full_auto_fract(
     id: &'static str,
     pattern: &[&str],
     arbitrary: &TailwindArbitrary,
