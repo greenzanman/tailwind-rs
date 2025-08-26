@@ -28,7 +28,7 @@ impl Display for TailwindOutlineWidth {
 
 impl TailwindInstance for TailwindOutlineWidth {
     fn attributes(&self, _: &TailwindBuilder) -> CssAttributes {
-        if cfg!(compile_time) {
+        if cfg!(feature = "compile_time") {
             // TODO: not percent
         }
         let width = self.kind.get_properties(|f| format!("{}px", f));

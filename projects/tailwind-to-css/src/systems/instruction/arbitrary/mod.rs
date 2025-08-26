@@ -39,7 +39,7 @@ impl TailwindArbitrary {
         T: Into<Self>,
     {
         let out = s.into();
-        if cfg!(compile_time) {
+        if cfg!(feature = "compile_time") {
             if out.inner.is_empty() {
                 return Err(TailwindError::syntax_error("Arbitrary value cannot be empty"));
             }
