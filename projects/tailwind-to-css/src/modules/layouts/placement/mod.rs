@@ -1,12 +1,14 @@
 use super::*;
 
-pub use self::{bottom::TailwindBottom, inset::TailwindInset, left::TailwindLeft, right::TailwindRight, top::TailwindTop};
+pub use self::{bottom::TailwindBottom, inset::TailwindInset, left::TailwindLeft, right::TailwindRight, top::TailwindTop, start::TailwindStart, end::TailwindEnd};
 
 mod bottom;
 mod inset;
 mod left;
 mod right;
 mod top;
+mod start;
+mod end;
 
 pub(crate) fn get_kind_px_full_auto_fract(
     id: &'static str,

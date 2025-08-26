@@ -45,6 +45,8 @@ impl TailwindInstruction {
             ["right", rest @ ..] => TailwindRight::parse(rest, arbitrary, neg)?.boxed(),
             ["bottom", rest @ ..] => TailwindBottom::parse(rest, arbitrary, neg)?.boxed(),
             ["left", rest @ ..] => TailwindLeft::parse(rest, arbitrary, neg)?.boxed(),
+            ["start", rest @ ..] => TailwindStart::parse(rest, arbitrary, neg)?.boxed(),
+            ["end", rest @ ..] => TailwindEnd::parse(rest, arbitrary, neg)?.boxed(),
             // https://tailwindcss.com/docs/visibility
             ["invisible"] => TailwindVisibility::from("hidden").boxed(),
             ["visible" | "visibility", rest @ ..] => TailwindVisibility::parse(rest, arbitrary)?.boxed(),
