@@ -254,8 +254,12 @@
   align-items: stretch;
 }
 
-.justify-content-start {
-  justify-content: start;
+.justify-between {
+  justify-content: space-between;
+}
+
+.justify-center-safe {
+  justify-content: safe center;
 }
 
 .justify-items-start {
@@ -264,6 +268,10 @@
 
 .justify-self-start {
   justify-self: start;
+}
+
+.justify-start {
+  justify-content: flex-start;
 }
 
 .order-0 {
