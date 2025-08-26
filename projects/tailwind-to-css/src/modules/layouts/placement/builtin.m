@@ -17,6 +17,7 @@ inset: auto;
 inset: inherit;
 inset: initial;
 inset: revert;
+inset: revert-layer;
 inset: unset;
 ";
 

@@ -25,5 +25,5 @@ pub(crate) fn get_kind_px_full_auto_fract(
 }
 
 pub(crate) fn check_valid_auto(mode: &str) -> bool {
-    ["auto", "inherit", "initial", "revert", "unset"].contains(&mode)
+    ["auto", "inherit", "initial", "revert", "unset", "revert-layer"].contains(&mode)
 }
