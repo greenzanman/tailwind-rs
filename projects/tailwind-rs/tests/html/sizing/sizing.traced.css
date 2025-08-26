@@ -22,6 +22,10 @@
   min-width: 0;
 }
 
+.min-width-\[47vh\] {
+  min-width: 47vh;
+}
+
 .min-width-fit {
   min-width: fit-content;
 }
@@ -54,8 +58,12 @@
   width: 1%;
 }
 
-.width-\[0em\] {
-  width: 0;
+.width-\[0\.125em\] {
+  width: .125em;
+}
+
+.width-\[0\.25em\] {
+  width: .25em;
 }
 
 .width-\[0px\] {
