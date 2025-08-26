@@ -27,6 +27,7 @@ path = "../tailwind-error"
 features = ["lightningcss", "nom", "css-color"]
 
 [dev-dependencies]
+pretty_assertions = "1.4.1"
 
 [features]
 default = ["html"]
