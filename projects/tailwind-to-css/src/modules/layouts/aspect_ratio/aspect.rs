@@ -2,7 +2,7 @@ use super::*;
 
 #[derive(Clone, Debug)]
 pub enum Aspect {
-    Radio(usize, usize),
+    Ratio(usize, usize),
     Standard(String),
     Arbitrary(TailwindArbitrary),
 }
@@ -10,7 +10,7 @@ pub enum Aspect {
 impl Display for Aspect {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::Radio(a, b) => write!(f, "{}/{}", a, b),
+            Self::Ratio(a, b) => write!(f, "{}/{}", a, b),
             Self::Standard(s) => write!(f, "{}", s),
             Self::Arbitrary(s) => s.write(f),
         }
@@ -20,12 +20,12 @@ impl Display for Aspect {
 impl Aspect {
     pub fn parse(pattern: &[&str], arbitrary: &TailwindArbitrary) -> Result<Self> {
         let out = match pattern {
-            ["square"] => Self::Radio(1, 1),
-            ["video"] => Self::Radio(16, 9),
+            ["square"] => Self::Ratio(1, 1),
+            ["video"] => Self::Ratio(16, 9),
             [s] if Self::check_valid(s) => Self::Standard(s.to_string()),
             [n] => {
                 let (a, b) = TailwindArbitrary::from(*n).as_fraction()?;
-                Self::Radio(a, b)
+                Self::Ratio(a, b)
             },
             [] => Self::parse_arbitrary(arbitrary)?,
             _ => return syntax_error!("unknown aspect-ratio elements"),
@@ -41,7 +41,7 @@ impl Aspect {
     }
     pub fn get_properties(&self) -> String {
         match self {
-            Self::Radio(a, b) => format!("{}/{}", a, b),
+            Self::Ratio(a, b) => format!("{}/{}", a, b),
             Self::Standard(s) => s.to_string(),
             Self::Arbitrary(s) => s.get_properties(),
         }
