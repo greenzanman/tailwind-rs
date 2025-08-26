@@ -170,6 +170,10 @@
   display: flex;
 }
 
+.display-grid {
+  display: grid;
+}
+
 .display-inline {
   display: inline;
 }
