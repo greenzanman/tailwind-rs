@@ -1,4 +1,6 @@
 pub(crate) use self::outline::outline_adaptor;
+pub(crate) use self::ring::ring_adaptor;
+
 pub use self::{
     border::{
         border_color::TailwindBorderColor, border_radius::TailwindRounded, border_style::TailwindBorderStyle,
@@ -14,11 +16,11 @@ pub use self::{
     },
     ring::{
         ring_color::TailwindRingColor, ring_inset::TailwindRingInset, ring_offset_color::TailwindRingOffsetColor,
-        ring_offset_width::TailwindRingOffsetWidth, ring_width::TailwindRingWidth, TailwindRing,
+        ring_offset_width::TailwindRingOffsetWidth, ring_width::TailwindRingWidth
     },
 };
 use crate::{
-    css_attributes, syntax_error, AxisXY, CssAttributes, LengthUnit, NumericValue, Result, TailwindArbitrary, TailwindBuilder,
+    css_attributes, syntax_error, AxisXY, CssAttributes, LengthUnit, Result, TailwindArbitrary, TailwindBuilder,
     TailwindColor, TailwindInstance, UnitValue,
 };
 use std::{

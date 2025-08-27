@@ -135,7 +135,7 @@ impl TailwindInstruction {
             ["border", rest @ ..] => Self::border_adaptor(rest, arbitrary)?,
             ["divide", rest @ ..] => TailwindDivide::adapt(rest, arbitrary)?,
             ["outline", rest @ ..] => outline_adaptor(rest, arbitrary)?,
-            ["ring", rest @ ..] => TailwindRing::adapt(rest, arbitrary)?,
+            ["ring", rest @ ..] => ring_adaptor(rest, arbitrary)?,
             // Effects System
             ["shadow", rest @ ..] => Self::shadow_adaptor(rest, arbitrary)?,
             ["opacity", rest @ ..] => TailwindOpacity::parse(rest, arbitrary, false)?.boxed(),
