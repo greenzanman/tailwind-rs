@@ -30,7 +30,7 @@ impl SizingUnit {
     }
     #[inline]
     fn maybe_no_unit(arbitrary: &TailwindArbitrary) -> Result<Self> {
-        let rem = |x| Ok(Self::Length(LengthUnit::em(x)));
+        let rem = |x| Ok(Self::Length(LengthUnit::rem(x)));
         rem(arbitrary.as_float()? / 4.0)
     }
     #[inline]
