@@ -113,6 +113,8 @@ See the `tests` folder for details.
     - [x] [space](https://tailwindcss.com/docs/space): [`TailwindSpace`]
 - **Sizing**
     - [x] [width](https://tailwindcss.com/docs/width): [`TailwindSizing`]
+        - [] **currently unsupported: keywords for width, like `xs`**
+        - [] **currently unsupported: max-h-none**
     - [x] [min-width](https://tailwindcss.com/docs/min-width): [`TailwindSizing`]
     - [x] [max-width](https://tailwindcss.com/docs/max-width): [`TailwindSizing`]
     - [x] [height](https://tailwindcss.com/docs/height): [`TailwindSizing`]
