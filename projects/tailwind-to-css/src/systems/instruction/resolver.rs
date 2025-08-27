@@ -184,6 +184,9 @@ impl TailwindInstruction {
             // Accessibility System
             ["sr", "only"] => TailwindScreenReader::new(true).boxed(),
             ["not", "sr", "only"] => TailwindScreenReader::new(false).boxed(),
+            // Contextual Markers for Variants
+            ["peer"] => TailwindVariantMarker::parse(pattern, arbitrary)?.boxed(),
+            ["group"] => TailwindVariantMarker::parse(pattern, arbitrary)?.boxed(),
             // Form System Extension
             _ => return syntax_error!("Unknown instructions: {} + {}", element.join("-"), arbitrary.get_class()),
         };

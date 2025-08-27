@@ -15,10 +15,11 @@ mod tables;
 mod transforms;
 mod transition;
 mod typography;
+mod contextual;
 
 pub use self::{
     accessibility::*, background::*, borders::*, effects::*, filters::*, flexbox::*, interactivity::*, layouts::*, sizing::*,
-    spacing::*, svg::*, tables::*, transforms::*, transition::*, typography::*,
+    spacing::*, svg::*, tables::*, transforms::*, transition::*, typography::*, contextual::*,
 };
 
 use crate::*;
