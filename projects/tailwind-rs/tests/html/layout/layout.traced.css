@@ -34,6 +34,10 @@
   aspect-ratio: unset;
 }
 
+.block {
+  display: block;
+}
+
 .bottom-1px {
   bottom: 1px;
 }
@@ -162,32 +166,8 @@
   }
 }
 
-.display-block {
-  display: block;
-}
-
-.display-contents {
+.contents {
   display: contents;
-}
-
-.display-flex {
-  display: flex;
-}
-
-.display-grid {
-  display: grid;
-}
-
-.display-inline {
-  display: inline;
-}
-
-.display-inline-block {
-  display: inline-block;
-}
-
-.display-none {
-  display: none;
 }
 
 .end-1\/1 {
@@ -214,6 +194,10 @@
   position: fixed;
 }
 
+.flex {
+  display: flex;
+}
+
 .float-\[unset\] {
   float: unset;
 }
@@ -236,6 +220,22 @@
 
 .float-unset {
   float: unset;
+}
+
+.grid {
+  display: grid;
+}
+
+.hidden {
+  display: none;
+}
+
+.inline {
+  display: inline;
+}
+
+.inline-block {
+  display: inline-block;
 }
 
 .inset-0 {

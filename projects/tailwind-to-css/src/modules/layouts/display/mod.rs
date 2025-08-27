@@ -7,21 +7,25 @@ pub struct TailwindDisplay {
 }
 
 // 1) Call TailwindDisplay::from("{keyword}").boxed()
-// 2) This keyword_instance! macro will generate:
-//       CSS classnames as ".display-{keyword}",
-//       and CSS rules as ".display-{keyword} { display: {keyword}; }"
-//  - EXAMPLE: TailwindDisplay::from("block") will create "display-block { display: block; }"
-//  - SPECIAL CASE: "hidden" turns into "display-none { display: none; }"
+// 2) This keyword_instance! macro will generate CSS rules as { display: {keyword}; }"
+//  - EXAMPLE: TailwindDisplay::from("block") will create the declaration "{ display: block; }"
+//  - SPECIAL CASE: "hidden" turns into keyword "none" for "{ display: none; }"
 crate::macros::sealed::keyword_instance!(TailwindDisplay => "display", { "hidden" => "none" });
 
+/// Generated traced CSS classnames as ".{keyword}".
 impl Display for TailwindDisplay {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        write!(f, "display-{}", self.kind)
+        match &self.kind {
+            StandardValue::Keyword(s) if s == "none" => write!(f, "hidden"),
+            _ => write!(f, "{}", self.kind)
+        }
     }
 }
 
+// Generated traced CSS classnames as ".{keyword}".
 impl TailwindDisplay {
     /// <https://tailwindcss.com/docs/display>
+    /// - Into/from is always used instead of parse() here, since display only has keywords.
     pub fn parse(pattern: &[&str], arbitrary: &TailwindArbitrary) -> Result<Self> {
         Ok(Self { kind: StandardValue::parser("display", &Self::check_valid)(pattern, arbitrary)? })
     }
