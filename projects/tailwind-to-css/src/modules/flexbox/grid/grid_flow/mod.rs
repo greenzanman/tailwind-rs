@@ -11,6 +11,7 @@ crate::macros::sealed::keyword_instance!(TailwindGridFlow => "grid-auto-flow");
 impl Display for TailwindGridFlow {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         self.kind.write_class(f, "grid-flow-", |f, s| match s {
+            "row" => write!(f, "row"),
             "column" => write!(f, "col"),
             "row dense" => write!(f, "row-dense"),
             "column dense" => write!(f, "col-dense"),
@@ -23,6 +24,7 @@ impl TailwindGridFlow {
     /// <https://tailwindcss.com/docs/grid-auto-flow>
     pub fn parse(pattern: &[&str], arbitrary: &TailwindArbitrary) -> Result<Self> {
         let kind = match pattern {
+            ["row"] => StandardValue::from("row"),
             ["col"] => StandardValue::from("column"),
             ["col", "dense"] => StandardValue::from("column dense"),
             ["row", "dense"] => StandardValue::from("row dense"),
