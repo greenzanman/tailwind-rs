@@ -40,7 +40,7 @@ impl TailwindTranslate {
         let kind = match rest {
             ["px"] => UnitValue::px(1.0),
             ["full"] => UnitValue::ratio(1, 1),
-            _ => UnitValue::negative_parser("translate", |_| false, true, false, false)(rest, arbitrary, negative)?,
+            _ => UnitValue::negative_parser("translate", |_| false, true, false, true)(rest, arbitrary, negative)?,
         };
         Ok(Self { kind, axis })
     }
