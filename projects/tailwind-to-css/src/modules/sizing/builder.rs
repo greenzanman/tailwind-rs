@@ -23,7 +23,6 @@ impl SizingUnit {
         // parse_arbitrary: input=TailwindArbitrary { inner: "unset" }
         // parse_arbitrary: input=TailwindArbitrary { inner: "none" }
         // parse_arbitrary: input=TailwindArbitrary { inner: "xs" }
-        // parse_arbitrary: input=TailwindArbitrary { inner: "50%" }
     }
     #[inline]
     fn maybe_length(arbitrary: &TailwindArbitrary) -> Result<Self> {

@@ -47,15 +47,15 @@
 }
 
 .width-1\/1 {
-  width: 1%;
+  width: 100%;
 }
 
 .width-1\/2 {
-  width: .5%;
+  width: 50%;
 }
 
 .width-12\/12, .width-2\/2 {
-  width: 1%;
+  width: 100%;
 }
 
 .width-\[0\.125em\] {
