@@ -206,10 +206,6 @@
   grid-template-columns: none;
 }
 
-.grid-flow- {
-  grid-auto-flow: row;
-}
-
 .grid-rows-1 {
   grid-template-rows: repeat(1, minmax(0, 1fr));
 }
@@ -304,6 +300,10 @@
 
 .place-self-start {
   place-self: start;
+}
+
+.row {
+  grid-auto-flow: row;
 }
 
 .row-dense {
