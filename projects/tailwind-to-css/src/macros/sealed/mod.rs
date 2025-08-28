@@ -1,3 +1,17 @@
+/// Give a tailwind type and a CSS property name, to automatically:
+/// - Create a `From` implementation, where the the input keyword is mapped as the value for the CSS property
+/// - Create a `TailwindInstance` implementation, that generates the CSS attribute `(property:value;)`
+///
+/// Useful for Tailwind utilities which have keywords that directly correspond to the utility's CSS values.
+/// For example, the `self-{keyword}` in Tailwind always maps to the CSS declaration `align-self: {keyword};`
+///
+/// ### ARM 1: Macro for TailwindInstances for which ALL keywords exactly match the respective CSS property's value.
+/// - Example:
+/// `crate::macros::sealed::keyword_instance!(TailwindSelf => "align-self");`
+///
+/// ### ARM 0: Macro for TailwindInstances that have SPECIAL CASES; 1+ keywords do not exactly match the property's CSS value.
+/// - Example:
+/// `crate::macros::sealed::keyword_instance!(TailwindDisplay => "display", { "hidden" => "none" });`
 macro_rules! keyword_instance {
     // ARM 0: Handles types that have special case(s) for input -> output_kword mappings.
     //  - example: keyword_instance!(TailwindDisplay => "display", { "hidden" => "none" });
