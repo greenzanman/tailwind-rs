@@ -17,7 +17,7 @@ pub use self::{
     z_index::TailwindZIndex,
 };
 use crate::{
-    css_attributes, syntax_error, AnchorPoint, AxisXY, CssAttributes, LengthUnit, Negative, Result, StandardValue,
+    css_attributes, syntax_error, AnchorPoint, AxisXY, CssAttributes, LengthUnit, Negative, Result, {StandardValue, KeywordClassFormat},
     TailwindArbitrary, TailwindBuilder, TailwindInstance, UnitValue,
 };
 use std::{

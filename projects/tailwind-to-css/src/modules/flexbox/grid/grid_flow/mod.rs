@@ -10,12 +10,13 @@ crate::macros::sealed::keyword_instance!(TailwindGridFlow => "grid-auto-flow");
 
 impl Display for TailwindGridFlow {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        self.kind.write_class(f, "grid-flow-", |f, s| match s {
-            "row" => write!(f, "row"),
-            "column" => write!(f, "col"),
-            "row dense" => write!(f, "row-dense"),
-            "column dense" => write!(f, "col-dense"),
-            _ => Err(std::fmt::Error),
+        self.kind.write_class(f, "grid-flow-", |s| match s {
+            "column dense" => KeywordClassFormat::AddAsSuffixCustom("col-dense"),
+            "row dense" => KeywordClassFormat::AddAsSuffixCustom("row-dense"),
+
+            keyword if TailwindGridFlow::check_valid(keyword) => KeywordClassFormat::AddAsSuffix,
+
+            _ => KeywordClassFormat::InvalidKeyword,
         })
     }
 }
@@ -26,6 +27,7 @@ impl TailwindGridFlow {
         let kind = match pattern {
             ["row"] => StandardValue::from("row"),
             ["col"] => StandardValue::from("column"),
+            ["dense"] => StandardValue::from("dense"),
             ["col", "dense"] => StandardValue::from("column dense"),
             ["row", "dense"] => StandardValue::from("row dense"),
             _ => StandardValue::parser("grid-auto", &Self::check_valid)(pattern, arbitrary)?,
@@ -34,7 +36,7 @@ impl TailwindGridFlow {
     }
     /// <https://developer.mozilla.org/en-US/docs/Web/CSS/grid-auto-flow#syntax>
     pub fn check_valid(mode: &str) -> bool {
-        let set = BTreeSet::from_iter(vec!["column", "dense", "inherit", "initial", "revert", "row", "unset"]);
+        let set = BTreeSet::from_iter(vec!["column", "row", "dense", "row dense", "column dense", "inherit", "initial", "revert", "unset"]);
         set.contains(mode)
     }
 }

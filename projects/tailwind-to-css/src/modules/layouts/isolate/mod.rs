@@ -10,9 +10,15 @@ crate::macros::sealed::keyword_instance!(TailwindIsolation => "isolation");
 
 impl Display for TailwindIsolation {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        self.kind.write_class(f, "isolation-", |f, s| match s {
-            "isolate" => write!(f, "isolate"),
-            _ => Err(std::fmt::Error),
+        self.kind.write_class(f, "isolation-", |s| match s {
+            // Special Case: The output is just the keyword itself, without the "isolation-" prefix.
+            "isolate" => KeywordClassFormat::CustomClassname("isolate"),
+
+            // General Rule: The output requires a prefix.
+            keyword if TailwindIsolation::check_valid(keyword) => KeywordClassFormat::AddAsSuffix,
+            
+            // Anything else is invalid.
+            _ => KeywordClassFormat::InvalidKeyword,
         })
     }
 }

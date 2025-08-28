@@ -4,7 +4,7 @@ use std::{
 };
 
 use crate::{
-    css_attributes, CssAttributes, Negative, Result, StandardValue, TailwindArbitrary, TailwindBuilder, TailwindColor,
+    css_attributes, CssAttributes, Negative, Result, {StandardValue, KeywordClassFormat}, TailwindArbitrary, TailwindBuilder, TailwindColor,
     TailwindInstance, TailwindScrollMargin, TailwindScrollPadding,
 };
 

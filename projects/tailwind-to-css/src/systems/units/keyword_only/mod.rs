@@ -2,7 +2,7 @@ use super::*;
 
 mod traits;
 
-/// Used to represent those attributes that only have keywords
+/// Used to represent CSS properties that have keyword values.
 #[derive(Debug, Clone)]
 pub enum StandardValue {
     Keyword(String),
@@ -41,18 +41,81 @@ impl StandardValue {
             Self::Arbitrary(s) => s.as_str(),
         }
     }
+    
+    /// A helper for writing CSS classnames for `StandardValue`s (Tailwind-style utilities 
+    /// that represent the CSS properties with keyword values).
+    ///
+    /// This function handles the logic for formatting `Keyword` and `Arbitrary` values
+    /// based on a set of instructions provided by a transformer closure.
+    ///
+    /// ## Arguments
+    /// * `class_prefix`: The static part of the classname that precedes the value (e.g., `"isolation-"`).
+    /// * `transformer`: A closure that takes an input keyword and returns a `KeywordClassFormat`
+    ///   variant, which dictates how the final classname will be written.
+    /// 
+    /// ## Example
+    /// ```
+    /// impl Display for TailwindIsolation {
+    /// fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    ///     self.kind.write_class(f, "isolation-", |s| match s {
+    ///         // Special Case: The output is just the keyword itself, without the "isolation-" prefix.
+    ///         "isolate" => KeywordClassFormat::CustomClassname("isolate"),
+    ///
+    ///         // General Rule: The output requires a prefix.
+    ///         keyword if TailwindIsolation::check_valid(keyword) => KeywordClassFormat::AddAsSuffix,
+    ///
+    ///         // Anything else is invalid.
+    ///         _ => KeywordClassFormat::InvalidKeyword,
+    ///     })
+    /// }
+    /// ```
     pub fn write_class(
         &self,
         fmt: &mut Formatter,
-        class: &str,
-        special: fn(&mut Formatter, &str) -> std::fmt::Result,
+        class_prefix: &str,
+        transformer: fn(&str) -> KeywordClassFormat,
     ) -> std::fmt::Result {
         match self {
-            StandardValue::Keyword(s) => match special(fmt, s) {
-                Ok(o) => Ok(o),
-                Err(_) => write!(fmt, "{}", class),
-            },
-            StandardValue::Arbitrary(s) => s.write_class(fmt, class),
+            StandardValue::Keyword(s) => {
+                match transformer(s) {
+                    // Custom: {}
+                    KeywordClassFormat::CustomClassname(value) => write!(fmt, "{}", value),
+
+                    // Non-custom: isolation-{}
+                    KeywordClassFormat::AddAsSuffixCustom(value) => write!(fmt, "{}{}", class_prefix, value),
+                    KeywordClassFormat::AddAsSuffix => write!(fmt, "{}{}", class_prefix, s),
+                    KeywordClassFormat::InvalidKeyword => Err(std::fmt::Error).into(),
+                }
+            }
+            StandardValue::Arbitrary(s) => write!(fmt, "{}[{}]", class_prefix, s),
         }
     }
+}
+
+/// Describes an instruction for the `write_class` function on how to format a CSS classname.
+#[derive(Debug, Clone)]
+pub enum KeywordClassFormat<'a> {
+    /// Writes a completely custom classname, ignoring the `class_prefix`.
+    ///
+    /// # Example
+    /// Given a `class_prefix` of `"prefix-"`, returning `CustomClassname("isolate")`
+    /// will result in the final classname: `isolate`.
+    CustomClassname(&'a str),
+
+    /// Appends a specific, transformed string to the `class_prefix`.
+    ///
+    /// # Example
+    /// Given a `class_prefix` of `"prefix-"` and an input of `"column-dense"`, returning
+    /// `AddAsSuffixCustom("col-dense")` results in the final classname: `prefix-col-dense`.
+    AddAsSuffixCustom(&'a str),
+
+    /// Appends the original, untransformed keyword to the `class_prefix`.
+    ///
+    /// # Example
+    /// Given a `class_prefix` of `"prefix-"` and an input of `"auto"`, returning
+    /// `AddAsSuffix` results in the final classname: `prefix-auto`.
+    AddAsSuffix,
+
+    /// Indicates the keyword is invalid, causing `write_class` to return a formatting error.
+    InvalidKeyword,
 }

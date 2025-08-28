@@ -284,11 +284,15 @@
   isolation: isolate;
 }
 
-.isolation- {
+.isolation-\[\[unset\]\] {
+  isolation: unset;
+}
+
+.isolation-auto {
   isolation: auto;
 }
 
-.isolation-\[unset\] {
+.isolation-unset {
   isolation: unset;
 }
 
@@ -420,7 +424,7 @@
   overscroll-behavior-y: auto;
 }
 
-.position-, .position-\[unset\] {
+.position-\[\[unset\]\], .position-unset {
   position: unset;
 }
 

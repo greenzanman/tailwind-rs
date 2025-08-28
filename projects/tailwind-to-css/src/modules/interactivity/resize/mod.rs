@@ -10,17 +10,20 @@ crate::macros::sealed::keyword_instance!(TailwindResize => "resize");
 
 impl Display for TailwindResize {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        self.kind.write_class(f, "resize-", |f, s| match s {
-            "both" => write!(f, "resize"),
-            "horizontal" => write!(f, "resize-x"),
-            "vertical" => write!(f, "resize-y"),
-            _ => Err(std::fmt::Error),
+        self.kind.write_class(f, "resize-", |s| match s {
+            "both" => KeywordClassFormat::CustomClassname("resize"),
+            "horizontal" => KeywordClassFormat::AddAsSuffixCustom("x"),
+            "vertical" => KeywordClassFormat::AddAsSuffixCustom("y"),
+
+            keyword if TailwindResize::check_valid(keyword) => KeywordClassFormat::AddAsSuffix,
+            
+            _ => KeywordClassFormat::InvalidKeyword,
         })
     }
 }
 
 impl TailwindResize {
-    /// https://tailwindcss.com/docs/user-select
+    /// https://tailwindcss.com/docs/resize
     pub fn parse(pattern: &[&str], arbitrary: &TailwindArbitrary) -> Result<Self> {
         let kind = match pattern {
             [] if arbitrary.is_none() => StandardValue::from("both"),
@@ -30,7 +33,7 @@ impl TailwindResize {
         };
         Ok(Self { kind })
     }
-    /// https://developer.mozilla.org/en-US/docs/Web/CSS/user-select#syntax
+    /// https://developer.mozilla.org/en-US/docs/Web/CSS/resize#syntax
     pub fn check_valid(mode: &str) -> bool {
         let set = BTreeSet::from_iter(vec![
             "block",

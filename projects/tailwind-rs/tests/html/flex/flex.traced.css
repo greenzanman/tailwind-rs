@@ -82,14 +82,6 @@
   flex-basis: unset;
 }
 
-.col {
-  grid-auto-flow: column;
-}
-
-.col-dense {
-  grid-auto-flow: column dense;
-}
-
 .col-end-3 {
   grid-column-end: 3;
 }
@@ -206,6 +198,22 @@
   grid-template-columns: none;
 }
 
+.grid-flow-col-dense {
+  grid-auto-flow: column dense;
+}
+
+.grid-flow-column {
+  grid-auto-flow: column;
+}
+
+.grid-flow-row {
+  grid-auto-flow: row;
+}
+
+.grid-flow-row-dense {
+  grid-auto-flow: row dense;
+}
+
 .grid-rows-1 {
   grid-template-rows: repeat(1, minmax(0, 1fr));
 }
@@ -300,14 +308,6 @@
 
 .place-self-start {
   place-self: start;
-}
-
-.row {
-  grid-auto-flow: row;
-}
-
-.row-dense {
-  grid-auto-flow: row dense;
 }
 
 .row-end-3 {
