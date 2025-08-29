@@ -1,3 +1,11 @@
+.-scale-100 {
+  transform: scale(-1);
+}
+
+.-scale-50 {
+  transform: scale(-.5);
+}
+
 .-translate-1 {
   transform: translate(-.25rem);
 }

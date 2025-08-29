@@ -15,7 +15,7 @@ impl From<i32> for NumericValue {
 impl Display for NumericValue {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         match self {
-            Self::Number { n, .. } => write!(f, "{}", n.abs()),
+            Self::Number { n, .. } => write!(f, "{}", n),
             Self::Keyword(value) => write!(f, "{}", value),
             Self::Arbitrary(value) => value.write(f),
         }

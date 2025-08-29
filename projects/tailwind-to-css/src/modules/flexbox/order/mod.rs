@@ -9,8 +9,19 @@ pub struct TailWindOrder {
 
 impl Display for TailWindOrder {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        self.kind.write_negative(f)?;
-        write!(f, "order-{}", self.kind)
+        match &self.kind {
+            NumericValue::Number { n, .. } => match *n as i32 {
+                -9999 => write!(f, "order-first"),
+                9999 => write!(f, "order-last"),
+                _ => {
+                    self.kind.write_class_name(f, "order-")
+                }
+            },
+            // For Keyword and Arbitrary variants
+            _ => {
+                self.kind.write_class_name(f, "order-")
+            },
+        }
     }
 }
 
@@ -26,8 +37,8 @@ impl TailWindOrder {
     pub fn parse(pattern: &[&str], arbitrary: &TailwindArbitrary, negative: Negative) -> Result<Self> {
         let kind = match pattern {
             ["none"] => NumericValue::from(0i32),
-            ["first"] => NumericValue::from(9999i32),
-            ["last"] => NumericValue::from(-9999i32),
+            ["first"] => NumericValue::from(-9999i32),
+            ["last"] => NumericValue::from(9999i32),
             [s] if Self::check_valid(s) => NumericValue::Keyword(s.to_string()),
             _ => NumericValue::negative_parser("order", &Self::check_valid)(pattern, arbitrary, negative)?,
         };

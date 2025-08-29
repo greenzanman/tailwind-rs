@@ -24,12 +24,24 @@ impl NumericValue {
             _ => write!(f, ""),
         }
     }
-    pub fn write_class(&self, f: &mut Formatter, before: &str) -> std::fmt::Result {
-        write!(f, "{}{}", before, self)
+    /// Helper to write the Display classname for a NumericValue:
+    /// - For NumericValue::Number, it will be {negative}{prefix}{abs(value)}. Example: "-order-4"
+    /// - For NumericValue::Keyword, it will be {prefix}{value}. Example: "order-none"
+    /// - For NumericValue::Arbitrary, it will be {prefix}{value}. Example: "mt-[4rem]"
+    pub fn write_class_name(&self, f: &mut Formatter, prefix: &str) -> std::fmt::Result {
+        match self {
+            Self::Number { n, .. } => {
+                self.write_negative(f)?;
+                write!(f, "{}{}", prefix, n.abs())
+            }
+            Self::Keyword(s) => write!(f, "{}{}", prefix, s),
+            Self::Arbitrary(s) => write!(f, "{}[{}]", prefix, s.get_properties()),
+        }
     }
 }
 
 impl NumericValue {
+    /// For parsing numbers that *can* be negative.
     pub fn negative_parser(
         id: &'static str,
         checker: impl Fn(&str) -> bool,
@@ -44,6 +56,7 @@ impl NumericValue {
             }
         }
     }
+    /// For parsing numbers that *cannot* be negative.
     pub fn positive_parser(
         id: &'static str,
         checker: impl Fn(&str) -> bool,
@@ -55,7 +68,7 @@ impl NumericValue {
                 [] => Self::parse_arbitrary(arbitrary),
                 [n] => {
                     let i = TailwindArbitrary::from(*n).as_integer()?;
-                    Ok(Self::Number { n: i as f32, negative: false, can_be_negative: true })
+                    Ok(Self::Number { n: i as f32, negative: false, can_be_negative: false })
                 },
                 _ => Err(TailwindError::syntax_error(format!("Unknown {} pattern", id))),
             }
@@ -64,11 +77,12 @@ impl NumericValue {
     pub fn parse_arbitrary(arbitrary: &TailwindArbitrary) -> Result<Self> {
         Ok(Self::Arbitrary(TailwindArbitrary::new(arbitrary)?))
     }
+    /// Helper for negative_parser
     pub fn parse_number(n: &str, negative: Negative) -> Result<Self> {
         let mut n = TailwindArbitrary::from(n).as_float()?;
         if negative.0 {
             n = -n
         }
-        Ok(Self::Number { n, negative: negative.0, can_be_negative: false })
+        Ok(Self::Number { n, negative: negative.0, can_be_negative: true })
     }
 }

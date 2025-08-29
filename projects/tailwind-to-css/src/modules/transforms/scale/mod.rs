@@ -8,18 +8,17 @@ pub struct TailwindScale {
 }
 impl Display for TailwindScale {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
-        self.kind.write_negative(f)?;
-        match self.axis {
-            AxisXY::N => write!(f, "scale-{}", self.kind),
-            AxisXY::X => write!(f, "scale-x-{}", self.kind),
-            AxisXY::Y => write!(f, "scale-y-{}", self.kind),
+        match &self.axis {
+            AxisXY::N => self.kind.write_class_name(f, "scale-"),
+            AxisXY::X => self.kind.write_class_name(f, "scale-x-"),
+            AxisXY::Y => self.kind.write_class_name(f, "scale-y-"),
         }
     }
 }
 
 impl TailwindInstance for TailwindScale {
     fn attributes(&self, _: &TailwindBuilder) -> CssAttributes {
-        let scale = self.kind.get_properties(|f| (f / 100.0).to_string());
+        let scale = self.kind.get_properties(|f| (f/100.0).to_string());
         let transform = match self.axis {
             AxisXY::N => format!("scale({})", scale),
             AxisXY::X => format!("scaleX({})", scale),

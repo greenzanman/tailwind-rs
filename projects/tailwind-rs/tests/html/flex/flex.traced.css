@@ -1,3 +1,7 @@
+.-order-1 {
+  order: -1;
+}
+
 .auto-cols-auto {
   grid-auto-columns: auto;
 }
@@ -286,12 +290,16 @@
   order: 1;
 }
 
-.order-9999 {
-  order: 9999;
-}
-
 .order-\[unset\] {
   order: [unset];
+}
+
+.order-first {
+  order: -9999;
+}
+
+.order-last {
+  order: 9999;
 }
 
 .order-unset {
