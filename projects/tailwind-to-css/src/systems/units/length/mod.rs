@@ -108,4 +108,12 @@ impl LengthUnit {
             _ => false,
         }
     }
+    /// Used to tell if a LengthUnit is 0, no matter the unit.
+    ///  - Useful for consolidating all 0s into one classname
+    pub fn is_zero(&self) -> bool {
+        match self {
+            Self::Fraction(a, _) => a.eq(&0),
+            Self::Unit(a, _) => a.eq(&0.0),
+        }
+    }
 }

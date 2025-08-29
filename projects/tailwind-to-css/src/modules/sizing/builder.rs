@@ -4,6 +4,7 @@ impl SizingUnit {
     pub fn parse(pattern: &[&str], arbitrary: &TailwindArbitrary) -> Result<Self> {
         let px = |x| Ok(Self::Length(LengthUnit::px(x)));
         match pattern {
+            ["none"] => Ok(Self::None),
             ["min"] => Ok(Self::Min),
             ["max"] => Ok(Self::Max),
             ["auto"] => Ok(Self::Auto),
@@ -21,7 +22,6 @@ impl SizingUnit {
         Self::maybe_fraction(arbitrary).or_else(|_| Self::maybe_no_unit(arbitrary)).or_else(|_| Self::maybe_length(arbitrary))
         // ! Does not match for the following test cases:
         // parse_arbitrary: input=TailwindArbitrary { inner: "unset" }
-        // parse_arbitrary: input=TailwindArbitrary { inner: "none" }
         // parse_arbitrary: input=TailwindArbitrary { inner: "xs" }
     }
     #[inline]

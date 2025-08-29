@@ -6,7 +6,7 @@
   max-height: 100vh;
 }
 
-.max-width-\[0px\] {
+.max-width-0 {
   max-width: 0;
 }
 
@@ -14,11 +14,15 @@
   max-width: 50%;
 }
 
+.max-width-none {
+  max-width: none;
+}
+
 .min-height-screen {
   min-height: 100vh;
 }
 
-.min-width-\[0px\] {
+.min-width-0 {
   min-width: 0;
 }
 
@@ -42,6 +46,10 @@
   min-width: min-content;
 }
 
+.width-0 {
+  width: 0;
+}
+
 .width-0\/12 {
   width: 0%;
 }
@@ -58,16 +66,12 @@
   width: 100%;
 }
 
-.width-\[0\.125em\] {
-  width: .125em;
+.width-\[0\.125rem\] {
+  width: .125rem;
 }
 
-.width-\[0\.25em\] {
-  width: .25em;
-}
-
-.width-\[0px\] {
-  width: 0;
+.width-\[0\.25rem\] {
+  width: .25rem;
 }
 
 .width-\[10\%\] {

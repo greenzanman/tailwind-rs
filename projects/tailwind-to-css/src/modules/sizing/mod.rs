@@ -15,6 +15,7 @@ enum TailwindSizingKind {
 
 #[derive(Copy, Clone, Debug)]
 enum SizingUnit {
+    None,
     Min,
     Max,
     Fit,
