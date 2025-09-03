@@ -2,17 +2,24 @@
 
 values = "
 /* Keyword value */
-letter-spacing: normal;
+line-height: normal;
+
+/* Unitless values: use this number multiplied
+by the element's font size */
+line-height: 3.5;
 
 /* <length> values */
-letter-spacing: 0.3em;
-letter-spacing: 3.0px;
-letter-spacing: .3px;
+line-height: 3em;
+
+/* <percentage> values */
+line-height: 34%;
 
 /* Global values */
-letter-spacing: inherit;
-letter-spacing: initial;
-letter-spacing: unset;
+line-height: inherit;
+line-height: initial;
+line-height: revert;
+line-height: revert-layer;
+line-height: unset;
 ";
 
 all = Sort@StringCases[

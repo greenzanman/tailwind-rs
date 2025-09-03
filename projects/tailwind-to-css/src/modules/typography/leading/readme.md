@@ -1,7 +1,10 @@
-Utilities for controlling the font smoothing of an element.
+Utilities for controlling the line-height of an element, based on https://v3.tailwindcss.com/docs/line-height.
+
+## Notes
+- Includes support for "default" keyword, https://developer.mozilla.org/en-US/docs/Web/CSS/line-height#normal
 
 
 ## Reference
 
-- [font-smoothing](https://tailwindcss.com/docs/font-smoothing)
-- [font-smoothing/cn](https://tailwindcss.cn/docs/font-smoothing)
+- [line-height](https://v3.tailwindcss.com/docs/line-height)
+- [line-height/cn](https://v3.tailwindcss.cn/docs/line-height)
