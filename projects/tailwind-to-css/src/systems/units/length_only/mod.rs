@@ -90,7 +90,7 @@ impl UnitValue {
             let kind = match pattern {
                 [] => Self::parse_arbitrary(arbitrary)?,
                 [s] if check_valid(s) => Self::Keyword(s.to_string()),
-                [n] => Self::parse_number(n, Negative::from(true), is_length, is_integer, allow_fraction)?,
+                [n] => Self::parse_number(n, Negative::from(false), is_length, is_integer, allow_fraction)?,
                 _ => {
                     let msg = format!("Unknown {} instructions: {}", id, pattern.join("-"));
                     return Err(TailwindError::syntax_error(msg));
