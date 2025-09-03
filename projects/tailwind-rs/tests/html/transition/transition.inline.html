@@ -1,9 +1,9 @@
 
 <html lang="en">
 <head>
-    <meta charset="UTF-8"></meta>
-    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg"></link>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <meta charset="UTF-8">
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Typography tests</title>
 </head>
 <body>
@@ -27,5 +27,15 @@
 <div style="transition-delay:100ms;"></div>
 <div style="transition-delay:unset;"></div>
 <div style="transition-delay:unset;"></div>
+<!-- https://tailwindcss.com/docs/transition-property -->
+<div style="transition-duration:var(--default-transition-duration);transition-property:color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, visibility, content-visibility, overlay, pointer-events;transition-timing-function:var(--default-transition-timing-function);"></div>
+<div style="transition-property:none;"></div>
+<div style="transition-duration:var(--default-transition-duration);transition-property:all;transition-timing-function:var(--default-transition-timing-function);"></div>
+<div style="transition-duration:var(--default-transition-duration);transition-property:color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;transition-timing-function:var(--default-transition-timing-function);"></div>
+<div style="transition-duration:var(--default-transition-duration);transition-property:opacity;transition-timing-function:var(--default-transition-timing-function);"></div>
+<div style="transition-duration:var(--default-transition-duration);transition-property:box-shadow;transition-timing-function:var(--default-transition-timing-function);"></div>
+<div style="transition-duration:var(--default-transition-duration);transition-property:transform, translate, scale, rotate;transition-timing-function:var(--default-transition-timing-function);"></div>
+<div style="transition-duration:var(--default-transition-duration);transition-property:custom-property;transition-timing-function:var(--default-transition-timing-function);"></div>
+<div style="transition-duration:var(--default-transition-duration);transition-property:background-image;transition-timing-function:var(--default-transition-timing-function);"></div>
 </body>
 </html>

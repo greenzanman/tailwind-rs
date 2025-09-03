@@ -25,3 +25,55 @@
 .duration-\[unset\], .duration-unset {
   transition-duration: unset;
 }
+
+.transition {
+  transition-duration: var(--default-transition-duration);
+  transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, visibility, content-visibility, overlay, pointer-events;
+  transition-timing-function: var(--default-transition-timing-function);
+}
+
+.transition-\[\[background-image\]\] {
+  transition-duration: var(--default-transition-duration);
+  transition-property: background-image;
+  transition-timing-function: var(--default-transition-timing-function);
+}
+
+.transition-\[\[custom-property\]\] {
+  transition-duration: var(--default-transition-duration);
+  transition-property: custom-property;
+  transition-timing-function: var(--default-transition-timing-function);
+}
+
+.transition-all {
+  transition-duration: var(--default-transition-duration);
+  transition-property: all;
+  transition-timing-function: var(--default-transition-timing-function);
+}
+
+.transition-colors {
+  transition-duration: var(--default-transition-duration);
+  transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
+  transition-timing-function: var(--default-transition-timing-function);
+}
+
+.transition-none {
+  transition-property: none;
+}
+
+.transition-opacity {
+  transition-duration: var(--default-transition-duration);
+  transition-property: opacity;
+  transition-timing-function: var(--default-transition-timing-function);
+}
+
+.transition-shadow {
+  transition-duration: var(--default-transition-duration);
+  transition-property: box-shadow;
+  transition-timing-function: var(--default-transition-timing-function);
+}
+
+.transition-transform {
+  transition-duration: var(--default-transition-duration);
+  transition-property: transform, translate, scale, rotate;
+  transition-timing-function: var(--default-transition-timing-function);
+}
