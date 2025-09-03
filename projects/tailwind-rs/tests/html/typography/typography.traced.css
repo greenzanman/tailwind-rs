@@ -94,6 +94,30 @@
   text-decoration-color: currentColor;
 }
 
+.leading-4 {
+  line-height: 1rem;
+}
+
+.leading-\[--my-custom-line-height\] {
+  line-height: --my-custom-line-height;
+}
+
+.leading-\[2\.5rem\] {
+  line-height: 2.5rem;
+}
+
+.leading-default {
+  line-height: 1.5rem;
+}
+
+.leading-none {
+  line-height: 1rem;
+}
+
+.leading-tight {
+  line-height: 1.25rem;
+}
+
 .line-through {
   text-decoration-line: line-through;
 }
