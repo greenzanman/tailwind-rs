@@ -107,15 +107,15 @@
 }
 
 .leading-default {
-  line-height: 1.5rem;
+  line-height: normal;
 }
 
 .leading-none {
-  line-height: 1rem;
+  line-height: 1;
 }
 
 .leading-tight {
-  line-height: 1.25rem;
+  line-height: 1.25;
 }
 
 .line-through {

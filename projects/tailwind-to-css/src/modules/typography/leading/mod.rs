@@ -29,15 +29,16 @@ impl TailwindInstance for TailwindLeading {
         let line_height = match &self.kind {
             UnitValue::Keyword(k) => match k.as_str() {
                 // Tailwind v3 keywords that map to unitless values
-                "none" => format!("{}rem", 1.0),
-                "tight" => format!("{}rem", 1.25),
-                "snug" => format!("{}rem", 1.375),
-                "relaxed" => format!("{}rem", 1.625),
-                "loose" => format!("{}rem", 2.0),
+                "none" => "1.0",
+                "tight" => "1.25",
+                "snug" => "1.375",
+                "normal" => "1.5",
+                "relaxed" => "1.625",
+                "loose" => "2.0",
                 // Standard CSS keyword
-                "normal" => "normal".to_string(),
-                _ => format!("{}rem", 1.5), // Default
-            },
+                "default" => "normal",
+                _ => "1.5", // Default
+            }.to_string(),
             // For UnitValue, use get_properties_rem to convert numbers to rem.
             _ => self.kind.get_properties_rem(),
         };
