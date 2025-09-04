@@ -2,7 +2,7 @@ use std::fmt::{Display, Formatter};
 
 /// Tailwind CSS Preflight v4 Style System
 /// <https://tailwindcss.com/docs/preflight>
-///  - minor typographic and element styles not included
+/// https://github.com/tailwindlabs/tailwindcss/blob/88b9f15b65588a87c5b6b13316530b4aecbc1b0b/packages/tailwindcss/preflight.css
 #[derive(Clone, Debug)]
 pub struct PreflightSystem {
     /// Disables all preflight styles if set to true.
@@ -25,11 +25,24 @@ pub struct PreflightSystem {
     pub reset_forms: bool,
     /// Prevents `hidden` elements from being displayed.
     pub hidden_attribute: bool,
-    /// Custom CSS to be prepended to the preflight styles.
+
+    /// Includes minor typographic styles and element-specific enhancements.
+    /// This provides sensible defaults for elements like `<strong>`, `<code>`, `<abbr>`,
+    /// and fixes issues such as `<sub>` and `<sup>` affecting line height.
+    pub specific_extras: bool,
+
+    /// Includes a collection of hyper-specific browser compatibility fixes.
+    /// This is primarily focused on normalizing the appearance of complex form controls,
+    /// addressing quirks in WebKit date pickers, search inputs, number input buttons,
+    /// and Firefox's focus and invalid input styles.
+    pub compatibility_fixes: bool,
+
+    /// User-defined custom CSS to be prepended to the preflight styles.
     pub custom: String,
 }
 
 impl Default for PreflightSystem {
+    /// The default state includes the COMPLETE set of Preflight styles.
     fn default() -> Self {
         Self {
             disable: false,
@@ -42,6 +55,8 @@ impl Default for PreflightSystem {
             reset_tables: true,
             reset_forms: true,
             hidden_attribute: true,
+            specific_extras: true,
+            compatibility_fixes: true,
             custom: String::new(),
         }
     }
@@ -182,14 +197,64 @@ input:where([type='button'], [type='reset'], [type='submit']),
   display: none !important;
 }
 "#;
+
+
+
+    const PREFLIGHT_EXTRAS: &'static str = r#"
+/* Minor typographic and element styles */
+abbr:where([title]) { -webkit-text-decoration: underline dotted; text-decoration: underline dotted; }
+b, strong { font-weight: bolder; }
+code, kbd, samp, pre { font-family: --theme(--default-mono-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace); font-size: 1em; }
+small { font-size: 80%; }
+sub, sup { font-size: 75%; line-height: 0; position: relative; vertical-align: baseline; }
+sub { bottom: -0.25em; }
+sup { top: -0.5em; }
+progress { vertical-align: baseline; }
+summary { display: list-item; }
+"#;
+
+
+    const PREFLIGHT_COMPATIBILITY_FIXES: &'static str = r#"
+/* Browser-specific compatibility fixes */
+:-moz-focusring { outline: auto; }
+:-moz-ui-invalid { box-shadow: none; }
+:where(select:is([multiple], [size])) optgroup { font-weight: bolder; }
+:where(select:is([multiple], [size])) optgroup option { padding-inline-start: 20px; }
+::file-selector-button { margin-inline-end: 4px; }
+::-webkit-search-decoration { -webkit-appearance: none; }
+::-webkit-date-and-time-value { min-height: 1lh; text-align: inherit; }
+::-webkit-datetime-edit { display: inline-flex; }
+::-webkit-datetime-edit-fields-wrapper, ::-webkit-datetime-edit-fields-wrapper, ::-webkit-datetime-edit, ::-webkit-datetime-edit-year-field, ::-webkit-datetime-edit-month-field, ::-webkit-datetime-edit-day-field, ::-webkit-datetime-edit-hour-field, ::-webkit-datetime-edit-minute-field, ::-webkit-datetime-edit-second-field, ::-webkit-datetime-edit-millisecond-field, ::-webkit-datetime-edit-meridiem-field { padding-block: 0; }
+::-webkit-calendar-picker-indicator { line-height: 1; }
+::-webkit-inner-spin-button, ::-webkit-outer-spin-button { height: auto; }
+"#;
+
+
+
+    // Creates a Preflight instance with the COMPLETE set of Tailwind v4 styles.
+    pub fn full() -> Self {
+        Self::default()
+    }
+
+
+    /// Creates a Preflight instance without the "extras" and "compatibility fixes" styles.
+    pub fn core() -> Self {
+        Self {
+            specific_extras: false,
+            compatibility_fixes: false,
+            ..Self::default()
+        }
+    }
 }
+  }
+
 
 impl Display for PreflightSystem {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         if self.disable {
             return Ok(());
         }
-
+        
         f.write_str(&self.custom)?;
         
         if self.global_reset {
@@ -219,6 +284,13 @@ impl Display for PreflightSystem {
         if self.hidden_attribute {
             writeln!(f, "{}", Self::HIDDEN_ATTRIBUTE.trim())?;
         }
+        if self.specific_extras {
+            writeln!(f, "{}", Self::PREFLIGHT_EXTRAS.trim())?;
+        }
+        if self.compatibility_fixes {
+            writeln!(f, "{}", Self::PREFLIGHT_COMPATIBILITY_FIXES.trim())?;
+        }
+
 
         Ok(())
     }
