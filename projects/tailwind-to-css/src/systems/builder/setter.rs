@@ -7,7 +7,7 @@ impl TailwindBuilder {
     }
     /// Add custom preflight information
     pub fn preflight_addition(&mut self, custom: impl Into<String>) {
-        self.preflight.custom = custom.into()
+        self.preflight.add_custom(&custom.into());
     }
 }
 

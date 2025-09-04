@@ -36,7 +36,7 @@ pub struct PreflightSystem {
     /// addressing quirks in WebKit date pickers, search inputs, number input buttons,
     /// and Firefox's focus and invalid input styles.
     pub compatibility_fixes: bool,
-
+    
     /// User-defined custom CSS to be prepended to the preflight styles.
     pub custom: String,
 }
@@ -245,7 +245,14 @@ summary { display: list-item; }
             ..Self::default()
         }
     }
-}
+
+    /// Appends custom CSS to the end of the preflight styles.
+    pub fn add_custom(&mut self, custom: &str) {
+        if !self.custom.is_empty() {
+            self.custom.push('\n');
+        }
+        self.custom.push_str(custom);
+    }
   }
 
 
@@ -255,8 +262,7 @@ impl Display for PreflightSystem {
             return Ok(());
         }
         
-        f.write_str(&self.custom)?;
-        
+        // Generate the built-in styles based on the boolean flags
         if self.global_reset {
             writeln!(f, "{}", Self::GLOBAL_RESET.trim())?;
         }
@@ -291,6 +297,10 @@ impl Display for PreflightSystem {
             writeln!(f, "{}", Self::PREFLIGHT_COMPATIBILITY_FIXES.trim())?;
         }
 
+        // Append the user's custom styles at the very end
+        if !self.custom.is_empty() {
+            writeln!(f, "{}", self.custom.trim())?;
+        }
 
         Ok(())
     }
