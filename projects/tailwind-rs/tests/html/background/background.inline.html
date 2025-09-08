@@ -1,9 +1,9 @@
 
 <html lang="en">
 <head>
-    <meta charset="UTF-8"></meta>
-    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg"></link>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
+    <meta charset="UTF-8">
+    <link rel="icon" href="https://upload.wikimedia.org/wikipedia/commons/d/d5/Tailwind_CSS_Logo.svg">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Background tests</title>
 </head>
 <body>
@@ -45,5 +45,26 @@
 <div style="background-repeat:space;"></div>
 <div style="background-repeat:unset;"></div>
 <div style="background-repeat:unset;"></div>
+
+<!-- https://tailwindcss.com/docs/background-color -->
+<div style="background-color:rgba(239, 68, 68, 1);"></div>
+<div class="bg-sky-400/75"></div>
+<div style="background-color:rgba(100, 116, 139, 1);"></div>
+<div style="background-color:rgba(0, 0, 0, 1);"></div>
+<div style="background-color:transparent;"></div>
+<div style="background-color:rgba(36, 60, 90, 1);"></div>
+<div style="background-color:rgba(100, 0, 100, 1);"></div>
+<div class="bg-[--my-custom-color]"></div>
+
+<!-- https://tailwindcss.com/docs/background-image -->
+<div style="background-image:none;"></div>
+<div style="--tw-gradient-position:to top in oklab;background-image:linear-gradient(var(--tw-gradient-stops));"></div>
+<div style="--tw-gradient-position:to bottom right in oklab;background-image:linear-gradient(var(--tw-gradient-stops));"></div>
+<div style="--tw-gradient-position:in oklab;background-image:radial-gradient(var(--tw-gradient-stops));"></div>
+<div style="--tw-gradient-position:in oklab;background-image:conic-gradient(var(--tw-gradient-stops));"></div>
+<div style="--tw-gradient-position:45deg in oklab;background-image:linear-gradient(var(--tw-gradient-stops, 45deg in oklab));"></div>
+<div style="--tw-gradient-position:calc(60deg * -1);background-image:linear-gradient(var(--tw-gradient-stops, calc(60deg * -1)));"></div>
+<div style="background-image:url('/img/hero-pattern.svg');"></div>
+
 </body>
 </html>

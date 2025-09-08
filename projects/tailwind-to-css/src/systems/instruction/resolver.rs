@@ -126,7 +126,7 @@ impl TailwindInstruction {
             // Typography System Extension
             ["prose"] => todo!(),
             // Backgrounds System
-            ["bg", rest @ ..] => Self::bg_adaptor(rest, arbitrary)?,
+            ["bg", rest @ ..] => Self::bg_adaptor(rest, arbitrary, neg)?,
             ["from", rest @ ..] => TailwindFrom::parse(rest, arbitrary)?.boxed(),
             ["via", rest @ ..] => TailwindVia::parse(rest, arbitrary)?.boxed(),
             ["to", rest @ ..] => TailwindTo::parse(rest, arbitrary)?.boxed(),
@@ -193,7 +193,7 @@ impl TailwindInstruction {
         Ok(instance)
     }
     #[inline]
-    fn bg_adaptor(pattern: &[&str], arbitrary: &TailwindArbitrary) -> Result<Box<dyn TailwindInstance>> {
+    fn bg_adaptor(pattern: &[&str], arbitrary: &TailwindArbitrary, neg: Negative) -> Result<Box<dyn TailwindInstance>> {
         let out = match pattern {
             // https://tailwindcss.com/docs/background-attachment
             [s @ ("fixed" | "local" | "scroll")] => TailwindBackgroundAttachment::from(*s).boxed(),
@@ -210,7 +210,20 @@ impl TailwindInstruction {
             ["size", rest @ ..] => TailwindBackgroundSize::parse(rest, arbitrary)?.boxed(),
             // https://tailwindcss.com/docs/background-blend-mode
             ["blend", rest @ ..] => TailwindBackgroundBlend::parse(rest, arbitrary)?.boxed(),
-            _ => TailwindBackgroundColor::parse(pattern, arbitrary)?.boxed(),
+            // https://tailwindcss.com/docs/background-image
+            // https://v3.tailwindcss.com/docs/background-image (bg-gradient-* alias for linear)
+            ["none"] | ["gradient" | "linear" | "radial" | "conic", ..] => {
+                TailwindBackgroundImage::parse(pattern, arbitrary, neg)?.boxed()
+            }
+            [] => {
+                if arbitrary.as_str().starts_with("url(") || arbitrary.as_str().contains("gradient(") {
+                    TailwindBackgroundImage::parse(pattern, arbitrary, neg)?.boxed()
+                } else {
+                    // Otherwise, assume arbitrary color.
+                    TailwindBackgroundColor::parse(pattern, arbitrary)?.boxed()
+                }
+            }
+            _ => TailwindBackgroundColor::parse(pattern, arbitrary)?.boxed()
         };
         Ok(out)
     }
