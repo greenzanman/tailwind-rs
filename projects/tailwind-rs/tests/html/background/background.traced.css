@@ -144,6 +144,10 @@
   background-attachment: scroll;
 }
 
+.bg-sky-400\/75 {
+  background-color: #38bdf8bf;
+}
+
 .bg-slate-500 {
   background-color: #64748b;
 }

@@ -36,7 +36,7 @@ fn resolve1(n: &str) -> Result<Box<dyn TailwindInstance>> {
     if n.starts_with(|c: char| c == '#') {
         return Ok(resolve1_color(&a)?.boxed());
     }
-    Ok(TailwindOutlineColor::from(TailwindColor::Themed(n.to_string(), 0)).boxed())
+    Ok(TailwindOutlineColor::from(TailwindColor::Themed{name: n.to_string(), weight: 0, alpha: None}).boxed())
 }
 
 fn resolve1_length(a: &TailwindArbitrary) -> Result<TailwindOutlineWidth> {

@@ -2,11 +2,11 @@ use super::*;
 
 mod traits;
 
-///
+/// Represents a Tailwind color, which can be a themed color, a keyword, or an arbitrary value.
 #[derive(Clone, Debug)]
 pub enum TailwindColor {
     RGB(Srgb),
-    Themed(String, u32),
+    Themed{name: String, weight: u32, alpha: Option<f32>},
     Keyword(String),
     Arbitrary(TailwindArbitrary),
 }
@@ -22,7 +22,14 @@ impl Display for TailwindColor {
                 (255.0 * c.blue) as u8,
                 (255.0 * c.alpha) as u8
             ),
-            Self::Themed(name, weight) => write!(f, "{}-{}", name, weight),
+            Self::Themed { name, weight, alpha } => {
+                write!(f, "{}-{}", name, weight)?;
+                if let Some(a) = alpha {
+                    // Alpha is 0.0-1.0, so convert to percentage for the class name
+                    write!(f, "/{}", *a * 100.0)?;
+                }
+                Ok(())
+            }
             Self::Arbitrary(a) => a.write(f),
             Self::Keyword(s) => match s.as_str() {
                 "transparent" => write!(f, "transparent"),
@@ -39,30 +46,63 @@ impl TailwindColor {
     pub const Black: Self = Self::RGB(Srgb { red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0 });
     /// `white`
     pub const White: Self = Self::RGB(Srgb { red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0 });
+    
+    /// Parses a color pattern, now with support for opacity modifiers like `/75`.
     /// https://developer.mozilla.org/zh-CN/docs/Web/CSS/color_value
     pub fn parse(pattern: &[&str], arbitrary: &TailwindArbitrary) -> Result<Self> {
-        let out = match pattern {
+        // 1. Separate the main color pattern from the opacity modifier.
+        let (main_pattern, opacity_modifier) = split_modifier(pattern);
+
+        // 2. Parse the base color from the main pattern.
+        let mut color = match main_pattern.as_slice() {
             ["none"] | ["transparent"] => Self::from("transparent"),
             ["black"] => Self::Black,
             ["white"] => Self::White,
             [s @ ("current" | "inherit" | "initial" | "unset")] => Self::from(*s),
             [] => Self::parse_arbitrary(arbitrary)?,
             [name, weight] => Self::parse_themed(name, weight)?,
-            _ => return syntax_error!("Unknown color pattern: {}", pattern.join("-")),
+            _ => return syntax_error!("Unknown color pattern: {}", main_pattern.join("-")),
         };
-        Ok(out)
+
+        // 3. If an opacity modifier exists, parse and apply it.
+        if let Some(modifier_str) = opacity_modifier {
+            let alpha = modifier_str.parse::<f32>()? / 100.0;
+            color.set_alpha(alpha);
+        }
+
+        Ok(color)
     }
+
+    // Helper method to apply the alpha value.
+    fn set_alpha(&mut self, alpha: f32) {
+        match self {
+            TailwindColor::RGB(srgb) => srgb.alpha = alpha,
+            TailwindColor::Themed { alpha: a, .. } => *a = Some(alpha),
+            TailwindColor::Keyword (_) => {
+                // Applying alpha to an already-keyword value is complex
+                // and often not needed, but could be implemented here if required.
+            }
+            TailwindColor::Arbitrary(_) => {
+                // Applying alpha to an already-arbitrary value is complex
+                // and often not needed, but could be implemented here if required.
+            }
+        }
+    }
+
     #[inline]
     pub fn parse_arbitrary(arbitrary: &TailwindArbitrary) -> Result<TailwindColor> {
         Ok(Self::RGB(arbitrary.as_color()?))
     }
+
     ///
     #[inline]
     pub fn parse_themed(name: &str, weight: &str) -> Result<TailwindColor> {
         let name = name.to_string();
         let weight = TailwindArbitrary::from(weight).as_integer()? as u32;
-        Ok(Self::Themed(name, weight))
+        // Initialize with no alpha; it will be added by `parse` if a modifier exists.
+        Ok(Self::Themed { name, weight, alpha: None })
     }
+
     /// get class of `<color>`
     ///
     /// - https://developer.mozilla.org/zh-CN/docs/Web/CSS/color_value
@@ -83,10 +123,34 @@ impl TailwindColor {
                 "current" => "currentColor".to_string(),
                 _ => s.to_string(),
             },
-            Self::Themed(name, weight) => match ctx.palettes.try_get_color(name, *weight) {
-                Ok(c) => format!("rgba({}, {}, {}, {})", 255.0 * c.red, 255.0 * c.green, 255.0 * c.blue, c.alpha),
-                Err(_) => "currentColor".to_string(),
+            Self::Themed{name, weight, alpha} => {
+                match ctx.palettes.try_get_color(name, *weight) {
+                    Ok(mut c) => {
+                        if let Some(a) = alpha {
+                            c.alpha = *a;
+                        }
+                        format!("rgba({}, {}, {}, {})", 255.0 * c.red, 255.0 * c.green, 255.0 * c.blue, c.alpha)
+                    },
+                    Err(_) => "currentColor".to_string(),
+                }
             },
         }
     }
+}
+
+
+/// Splits a Tailwind class pattern into its main part and an optional modifier.
+///
+/// e.g., `["red", "500/75"]` -> `(vec!["red", "500"], Some("75"))`
+/// e.g., `["red", "500"]`    -> `(vec!["red", "500"], None)`
+fn split_modifier<'a>(pattern: &'a [&'a str]) -> (Vec<&'a str>, Option<&'a str>) {
+    if let Some((last, initial_parts)) = pattern.split_last() {
+        if let Some((main, modifier)) = last.rsplit_once('/') {
+            let mut main_pattern = initial_parts.to_vec();
+            main_pattern.push(main);
+            return (main_pattern, Some(modifier));
+        }
+    }
+    // If no "/" is found, return the original pattern and no modifier.
+    (pattern.to_vec(), None)
 }

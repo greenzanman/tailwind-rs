@@ -58,7 +58,7 @@ fn resolve1(n: &str) -> Result<Box<dyn TailwindInstance>> {
     if n.starts_with(|c: char| c == '#') {
         return Ok(resolve1_color(&a)?.boxed());
     }
-    Ok(TailwindDecorationColor::from(TailwindColor::Themed(n.to_string(), 0)).boxed())
+    Ok(TailwindDecorationColor::from(TailwindColor::Themed{name: n.to_string(), weight: 0, alpha: None}).boxed())
 }
 
 fn resolve1_unit(a: &TailwindArbitrary) -> Result<TailwindDecorationThickness> {

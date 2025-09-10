@@ -69,7 +69,7 @@ fn resolve1(n: &str) -> Result<Box<dyn TailwindInstance>> {
     }
     
     // Otherwise, assume it's a themed color (e.g., "blue-500").
-    Ok(TailwindRingColor::from(TailwindColor::Themed(n.to_string(), 0)).boxed())
+    Ok(TailwindRingColor::from(TailwindColor::Themed{name: n.to_string(), weight: 0, alpha: None}).boxed())
 }
 
 /// Helper to parse an arbitrary value as a length-based width.
@@ -102,7 +102,7 @@ fn resolve_offset(n: &str) -> Result<Box<dyn TailwindInstance>> {
     }
     
     // Otherwise, assume it's a themed color (e.g., "blue-500").
-    Ok(TailwindRingOffsetColor::from(TailwindColor::Themed(n.to_string(), 0)).boxed())
+    Ok(TailwindRingOffsetColor::from(TailwindColor::Themed{name: n.to_string(), weight: 0, alpha: None}).boxed())
 }
 
 /// Helper to parse an arbitrary value as a length-based offset width.
