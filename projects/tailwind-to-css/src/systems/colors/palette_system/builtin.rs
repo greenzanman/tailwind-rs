@@ -5,6 +5,20 @@ impl PaletteSystem {
     /// <https://tailwindcss.com/docs/customizing-colors>
     pub fn builtin() -> Self {
         let mut new = Self::default();
+
+        // Register Keywords
+        new.register_keyword(
+            "black".to_string(),
+            "rgba(0, 0, 0, 1)",
+        ).expect("Failed to register a critical color: black");
+
+        new.register_keyword(
+            "white".to_string(),
+            "rgba(255, 255, 255, 1)",
+        ).expect("Failed to register a critical color: white");
+        // "transparent" and "current": special treatment in the get_properties function.
+
+        
         new.register("slate".to_string(), Palette::slate());
         new.register("gray".to_string(), Palette::gray());
         new.register("zinc".to_string(), Palette::zinc());

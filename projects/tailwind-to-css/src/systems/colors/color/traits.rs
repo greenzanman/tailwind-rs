@@ -8,12 +8,12 @@ impl From<Srgb> for TailwindColor {
 
 impl From<&str> for TailwindColor {
     fn from(s: &str) -> Self {
-        Self::Keyword(s.to_string())
+        Self::Keyword { name: s.to_string(), alpha: None }
     }
 }
 
 impl From<String> for TailwindColor {
     fn from(s: String) -> Self {
-        Self::Keyword(s)
+        Self::Keyword { name: s, alpha: None }
     }
 }
