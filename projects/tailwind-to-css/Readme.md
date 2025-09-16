@@ -121,6 +121,12 @@ See the `tests` folder for details.
     - [x] [min-height](https://tailwindcss.com/docs/min-height): [`TailwindSizing`]
     - [x] [max-height](https://tailwindcss.com/docs/max-height): [`TailwindSizing`]
 - **Typography**
+    <!-- TODO: these are not parsed correctly (special text-* arbitrary) -->
+    <div class="text-[black]"></div>
+    <div class="text-[rgb(123,123,123)]"></div>
+    <div class="text-[rgb(123, 123, 123)]"></div>
+    <div class="text-[rgb(123 123 123)]"></div>
+    <div class="text-[color:var(--color)]"></div>
     - [x] [font-family](https://tailwindcss.com/docs/font-family): [`TailwindFontFamily`]
     - [x] [font-size](https://tailwindcss.com/docs/font-size): [`TailwindFontSize`]
     - [x] [font-smoothing](https://tailwindcss.com/docs/font-smoothing): [`FontSmoothing`]
