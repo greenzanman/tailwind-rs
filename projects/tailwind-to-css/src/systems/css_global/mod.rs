@@ -30,6 +30,7 @@ fn normalize_class_name(f: &mut (dyn Write), name: &str) -> Result<()> {
             ' ' => write!(f, "_"),
             r @ ('-' | '_') => write!(f, "{}", r),
             a if a.is_alphanumeric() => write!(f, "{}", a),
+            '"' | '\'' => write!(f, ""), // CSS selectors cannot contain quotes, even if escaped
             _ => write!(f, "\\{}", c),
         }?
     }
