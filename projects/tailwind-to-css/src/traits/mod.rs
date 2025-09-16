@@ -13,7 +13,7 @@ pub trait TailwindInstance: Display {
     /// used to deduplication and marking
     #[inline]
     fn id(&self) -> String {
-        self.to_string()
+        normalize_class_name(&self.to_string())
     }
     /// used to deduplication and marking
     fn inlineable(&self) -> bool {
@@ -37,4 +37,18 @@ pub trait TailwindInstance: Display {
     fn additional(&self, ctx: &TailwindBuilder) -> String {
         String::new()
     }
+}
+
+// Same as normalizing selector, but without escaping non-alphanumeric characters
+fn normalize_class_name(name: &str) -> String {
+    let mut out = String::new();
+    for c in name.chars() {
+        match c {
+            ' ' => out.push('_'),
+            r @ ('-' | '_') => out.push(r),
+            a if a.is_alphanumeric() => out.push(a),
+            _ => out.push(c),
+        }
+    }
+    out
 }
