@@ -19,11 +19,18 @@ pub fn font_adaptor(pattern: &[&str], arbitrary: &TailwindArbitrary) -> Result<B
         ["bold"] => TailwindFontWeight::BOLD.boxed(),
         ["extrabold"] => TailwindFontWeight::EXTRA_BOLD.boxed(),
         ["black"] => TailwindFontWeight::BLACK.boxed(),
-        // Extended syntax for font-size (usually it's text-{size})
+        // Extended syntax for font-size: font-{size}    (usually it's text-{size})
         ["size"] => TailwindFontSize::parse(pattern, arbitrary)?.boxed(),
         ["size", n] => {
             let a = TailwindArbitrary::from(*n);
             TailwindFontSize::parse(pattern, &a)?.boxed()
+        },
+        // Extended syntax for font-family: font-family-{family}    (usually it's font-{family})
+        ["family", rest @ ..] => {
+            if rest.is_empty() && arbitrary.is_some() {
+                return Ok(TailwindFontFamily::from(arbitrary.get_properties()).boxed())
+            }
+            TailwindFontFamily::from(rest.join("-")).boxed()
         },
         // Try parse as font weight if pattern has one segment
         // - will fail if segment is not an int
