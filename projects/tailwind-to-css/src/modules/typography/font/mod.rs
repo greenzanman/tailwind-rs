@@ -19,26 +19,36 @@ pub fn font_adaptor(pattern: &[&str], arbitrary: &TailwindArbitrary) -> Result<B
         ["bold"] => TailwindFontWeight::BOLD.boxed(),
         ["extrabold"] => TailwindFontWeight::EXTRA_BOLD.boxed(),
         ["black"] => TailwindFontWeight::BLACK.boxed(),
-        ["size"] => maybe_size(arbitrary)?,
+        // Extended syntax for font-size (usually it's text-{size})
+        ["size"] => TailwindFontSize::parse(pattern, arbitrary)?.boxed(),
         ["size", n] => {
             let a = TailwindArbitrary::from(*n);
-            maybe_size(&a)?
+            TailwindFontSize::parse(pattern, &a)?.boxed()
         },
+        // Try parse as font weight if pattern has one segment
+        // - will fail if segment is not an int
         [n] => {
             let a = TailwindArbitrary::from(*n);
-            maybe_weight(&a).or_else(|_| maybe_size(&a))?
+            maybe_weight(&a)?
         },
-        _ => TailwindFontFamily::from(pattern.join("-")).boxed(),
+        // Try parse as font family if pattern has 1+ segments
+        [_, _rest @ ..] => {
+            TailwindFontFamily::from(pattern.join("-")).boxed()
+        },
+        // If no pattern, try parse the arbitrary:
+        // 1) try parse as font weight, 
+        // 2) if fails, try parse as font family
+        [] => {
+            maybe_weight(arbitrary)
+               .or_else(|_| Ok::<Box<dyn TailwindInstance>, TailwindError>(
+                    TailwindFontFamily::from(arbitrary.get_properties()).boxed()
+                ))?
+        }
     };
     Ok(out)
 }
 
 fn maybe_weight(arbitrary: &TailwindArbitrary) -> Result<Box<dyn TailwindInstance>> {
-    let w = arbitrary.as_integer()?;
-    Ok(TailwindFontWeight::new(w).boxed())
-}
-
-fn maybe_size(arbitrary: &TailwindArbitrary) -> Result<Box<dyn TailwindInstance>> {
     let w = arbitrary.as_integer()?;
     Ok(TailwindFontWeight::new(w).boxed())
 }

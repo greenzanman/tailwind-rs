@@ -22,7 +22,7 @@ pub use self::{
     whitespace::TailwindWhiteSpace,
 };
 use crate::{
-    css_attributes, syntax_error, CssAttributes, LengthUnit, Result, StandardValue, TailwindArbitrary, TailwindBreakAfter,
+    css_attributes, TailwindError, syntax_error, CssAttributes, LengthUnit, Result, StandardValue, TailwindArbitrary, TailwindBreakAfter,
     TailwindBreakBefore, TailwindBreakInside, TailwindBuilder, TailwindColor, TailwindInstance, UnitValue
 };
 use std::{
