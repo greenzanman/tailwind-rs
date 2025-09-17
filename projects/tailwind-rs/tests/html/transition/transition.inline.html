@@ -12,13 +12,13 @@
 <div class="font-serif"></div>
 <div class="font-mono"></div>
 <!-- https://tailwindcss.com/docs/transition-duration -->
-<div style="transition-duration:150ms;"></div>
-<div style="transition-duration:0ms;"></div>
-<div style="transition-duration:0ms;"></div>
-<div style="transition-duration:100ms;"></div>
-<div style="transition-duration:100ms;"></div>
-<div style="transition-duration:unset;"></div>
-<div style="transition-duration:unset;"></div>
+<div class="duration"></div>
+<div style="--tw-duration:0ms;transition-duration:0ms;"></div>
+<div style="--tw-duration:0ms;transition-duration:0ms;"></div>
+<div style="--tw-duration:100ms;transition-duration:100ms;"></div>
+<div style="--tw-duration:100ms;transition-duration:100ms;"></div>
+<div style="--tw-duration:unset;transition-duration:unset;"></div>
+<div style="--tw-duration:unset;transition-duration:unset;"></div>
 <!-- https://tailwindcss.com/docs/transition-delay -->
 <div style="transition-delay:100ms;"></div>
 <div style="transition-delay:0ms;"></div>
@@ -28,15 +28,15 @@
 <div style="transition-delay:unset;"></div>
 <div style="transition-delay:unset;"></div>
 <!-- https://tailwindcss.com/docs/transition-property -->
-<div style="transition-duration:var(--default-transition-duration);transition-property:color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, visibility, content-visibility, overlay, pointer-events;transition-timing-function:var(--default-transition-timing-function);"></div>
+<div style="transition-duration:var(--tw-duration, var(--default-transition-duration));transition-property:color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, visibility, content-visibility, overlay, pointer-events;transition-timing-function:var(--tw-ease, var(--default-transition-timing-function));"></div>
 <div style="transition-property:none;"></div>
-<div style="transition-duration:var(--default-transition-duration);transition-property:all;transition-timing-function:var(--default-transition-timing-function);"></div>
-<div style="transition-duration:var(--default-transition-duration);transition-property:color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;transition-timing-function:var(--default-transition-timing-function);"></div>
-<div style="transition-duration:var(--default-transition-duration);transition-property:opacity;transition-timing-function:var(--default-transition-timing-function);"></div>
-<div style="transition-duration:var(--default-transition-duration);transition-property:box-shadow;transition-timing-function:var(--default-transition-timing-function);"></div>
-<div style="transition-duration:var(--default-transition-duration);transition-property:transform, translate, scale, rotate;transition-timing-function:var(--default-transition-timing-function);"></div>
-<div style="transition-duration:var(--default-transition-duration);transition-property:custom-property;transition-timing-function:var(--default-transition-timing-function);"></div>
-<div style="transition-duration:var(--default-transition-duration);transition-property:background-image;transition-timing-function:var(--default-transition-timing-function);"></div>
+<div style="transition-duration:var(--tw-duration, var(--default-transition-duration));transition-property:all;transition-timing-function:var(--tw-ease, var(--default-transition-timing-function));"></div>
+<div style="transition-duration:var(--tw-duration, var(--default-transition-duration));transition-property:color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;transition-timing-function:var(--tw-ease, var(--default-transition-timing-function));"></div>
+<div style="transition-duration:var(--tw-duration, var(--default-transition-duration));transition-property:opacity;transition-timing-function:var(--tw-ease, var(--default-transition-timing-function));"></div>
+<div style="transition-duration:var(--tw-duration, var(--default-transition-duration));transition-property:box-shadow;transition-timing-function:var(--tw-ease, var(--default-transition-timing-function));"></div>
+<div style="transition-duration:var(--tw-duration, var(--default-transition-duration));transition-property:transform, translate, scale, rotate;transition-timing-function:var(--tw-ease, var(--default-transition-timing-function));"></div>
+<div style="transition-duration:var(--tw-duration, var(--default-transition-duration));transition-property:custom-property;transition-timing-function:var(--tw-ease, var(--default-transition-timing-function));"></div>
+<div style="transition-duration:var(--tw-duration, var(--default-transition-duration));transition-property:background-image;transition-timing-function:var(--tw-ease, var(--default-transition-timing-function));"></div>
 <!-- https://tailwindcss.com/docs/transition-timing-function -->
 <div style="--tw-ease:linear;transition-timing-function:linear;"></div>
 <div style="--tw-ease:var(--ease-in);transition-timing-function:var(--ease-in);"></div>

@@ -48,40 +48,40 @@ impl TailwindInstance for TailwindTransition {
             },
             Transition::All => css_attributes! {
                 "transition-property" => "all",
-                "transition-timing-function" => "var(--default-transition-timing-function)",
-                "transition-duration" => "var(--default-transition-duration)"
+                "transition-timing-function" => "var(--tw-ease, var(--default-transition-timing-function))",
+                "transition-duration" => "var(--tw-duration, var(--default-transition-duration))"
             },
             Transition::Default => css_attributes! {
                 "transition-property" => "color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, visibility, content-visibility, overlay, pointer-events",
-                "transition-timing-function" => "var(--default-transition-timing-function)",
-                "transition-duration" => "var(--default-transition-duration)"
+                "transition-timing-function" => "var(--tw-ease, var(--default-transition-timing-function))",
+                "transition-duration" => "var(--tw-duration, var(--default-transition-duration))"
             },
             Transition::Colors => css_attributes! {
                 "transition-property" => "color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to",
-                "transition-timing-function" => "var(--default-transition-timing-function)",
-                "transition-duration" => "var(--default-transition-duration)"
+                "transition-timing-function" => "var(--tw-ease, var(--default-transition-timing-function))",
+                "transition-duration" => "var(--tw-duration, var(--default-transition-duration))"
             },
             Transition::Opacity => css_attributes! {
                 "transition-property" => "opacity",
-                "transition-timing-function" => "var(--default-transition-timing-function)",
-                "transition-duration" => "var(--default-transition-duration)"
+                "transition-timing-function" => "var(--tw-ease, var(--default-transition-timing-function))",
+                "transition-duration" => "var(--tw-duration, var(--default-transition-duration))"
             },
             Transition::Shadow => css_attributes! {
                 "transition-property" => "box-shadow",
-                "transition-timing-function" => "var(--default-transition-timing-function)",
-                "transition-duration" => "var(--default-transition-duration)"
+                "transition-timing-function" => "var(--tw-ease, var(--default-transition-timing-function))",
+                "transition-duration" => "var(--tw-duration, var(--default-transition-duration))"
             },
             Transition::Transform => css_attributes! {
                 "transition-property" => "transform, translate, scale, rotate",
-                "transition-timing-function" => "var(--default-transition-timing-function)",
-                "transition-duration" => "var(--default-transition-duration)"
+                "transition-timing-function" => "var(--tw-ease, var(--default-transition-timing-function))",
+                "transition-duration" => "var(--tw-duration, var(--default-transition-duration))"
             },
             Transition::Arbitrary(a) => {
                 let value = a.get_properties();
                 css_attributes! {
                     "transition-property" => value,
-                    "transition-timing-function" => "var(--default-transition-timing-function)",
-                    "transition-duration" => "var(--default-transition-duration)"
+                    "transition-timing-function" => "var(--tw-ease, var(--default-transition-timing-function))",
+                    "transition-duration" => "var(--tw-duration, var(--default-transition-duration))"
                 }
             }
         }
