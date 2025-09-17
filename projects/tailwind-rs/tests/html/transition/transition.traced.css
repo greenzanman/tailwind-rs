@@ -26,6 +26,26 @@
   transition-duration: unset;
 }
 
+.ease-\[cubic-bezier\(0\.4\,0\,0\.2\,1\)\] {
+  transition-timing-function: [cubic-bezier(.4, 0, .2, 1) ];
+}
+
+.ease-in {
+  transition-timing-function: in;
+}
+
+.ease-in-out {
+  transition-timing-function: in-out;
+}
+
+.ease-linear {
+  transition-timing-function: linear;
+}
+
+.ease-out {
+  transition-timing-function: out;
+}
+
 .transition {
   transition-duration: var(--default-transition-duration);
   transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, visibility, content-visibility, overlay, pointer-events;
