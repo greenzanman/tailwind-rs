@@ -27,23 +27,28 @@
 }
 
 .ease-\[cubic-bezier\(0\.4\,0\,0\.2\,1\)\] {
-  transition-timing-function: [cubic-bezier(.4, 0, .2, 1) ];
+  --tw-ease: cubic-bezier(.4, 0, .2, 1);
+  transition-timing-function: cubic-bezier(.4, 0, .2, 1);
 }
 
 .ease-in {
-  transition-timing-function: ease-in;
+  --tw-ease: var(--ease-in);
+  transition-timing-function: var(--ease-in);
 }
 
 .ease-in-out {
-  transition-timing-function: ease-in-out;
+  --tw-ease: var(--ease-in-out);
+  transition-timing-function: var(--ease-in-out);
 }
 
 .ease-linear {
+  --tw-ease: linear;
   transition-timing-function: linear;
 }
 
 .ease-out {
-  transition-timing-function: ease-out;
+  --tw-ease: var(--ease-out);
+  transition-timing-function: var(--ease-out);
 }
 
 .transition {
