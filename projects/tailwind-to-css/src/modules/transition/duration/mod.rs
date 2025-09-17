@@ -16,6 +16,7 @@ impl TailwindInstance for TailwindDuration {
     fn attributes(&self, _: &TailwindBuilder) -> CssAttributes {
         let duration = self.ms.get_properties(|f| format!("{}ms", f));
         css_attributes! {
+            "--tw-duration" => duration.clone(),
             "transition-duration" => duration
         }
     }
@@ -25,7 +26,6 @@ impl TailwindDuration {
     /// <https://tailwindcss.com/docs/transition-duration>
     pub fn parse(pattern: &[&str], arbitrary: &TailwindArbitrary) -> Result<Self> {
         let ms = match pattern {
-            [] if arbitrary.is_none() => 150u32.into(),
             _ => NumericValue::positive_parser("duration", Self::check_valid)(pattern, arbitrary)?,
         };
         Ok(Self { ms })
