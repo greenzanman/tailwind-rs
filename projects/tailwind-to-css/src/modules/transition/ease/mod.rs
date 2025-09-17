@@ -8,9 +8,9 @@ pub struct TailwindEase {
 }
 crate::macros::sealed::keyword_instance!(TailwindEase => "transition-timing-function",
     {
-        "ease-in" => "in",
-        "ease-in-out" => "in-out",
-        "ease-out" => "out",
+        "in" => "ease-in",
+        "in-out" => "ease-in-out",
+        "out" => "ease-out",
     }
 );
 

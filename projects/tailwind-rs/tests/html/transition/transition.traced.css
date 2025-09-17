@@ -31,11 +31,11 @@
 }
 
 .ease-in {
-  transition-timing-function: in;
+  transition-timing-function: ease-in;
 }
 
 .ease-in-out {
-  transition-timing-function: in-out;
+  transition-timing-function: ease-in-out;
 }
 
 .ease-linear {
@@ -43,7 +43,7 @@
 }
 
 .ease-out {
-  transition-timing-function: out;
+  transition-timing-function: ease-out;
 }
 
 .transition {
