@@ -23,26 +23,15 @@ macro_rules! keyword_instance {
             T: Into<String>,
         {
             fn from(input_kword: T) -> Self {
-                let s: String = input_kword.into();
-                // Get the CSS value associated with the input_kword keyword.
-                // Also set that CSS value as the new keyword.
-                // 1. this will normalize the keyword and simplify the setting of (property:value);
-                let attr_value = match s.as_str() {
-                    $(
-                        $input_kword => $output_kword.to_string(),
-                    )*
-                    // If no match, use the original string
-                    _ => s,
-                };
-                Self { kind: StandardValue::from(attr_value) }
+                Self { kind: StandardValue::from(input_kword.into()) }
             }
         }
 
-        // Set a css declaration (property:value;) for this keyword (StandardValue)
+        // Set a css declaration (property:value;) for this keyword (StandardValue), using the defined mapping.
         impl TailwindInstance for $type {
             fn attributes(&self, _: &TailwindBuilder) -> CssAttributes {
                 css_attributes! {
-                    $attr_property => self.kind.get_properties()
+                    $attr_property => <$type>::map_keyword(self.kind.get_properties())
                 }
             }
         }
@@ -80,6 +69,7 @@ macro_rules! keyword_instance {
     // NOTE: This comes second, bc macros match the most specific rule first
     //   - example: keyword_instance!(TailwindDisplay => "display");
     ($type:ty => $attr_property:literal) => {
+        // Same implementation as ARM 0
         impl<T> From<T> for $type
         where
             T: Into<String>,
@@ -88,7 +78,7 @@ macro_rules! keyword_instance {
                 Self { kind: StandardValue::from(input_kword.into()) }
             }
         }
-        // Same implementation as ARM 0
+        // Differs from implementation as ARM 0 in that it always uses the keyword as the value.
         impl TailwindInstance for $type {
             fn attributes(&self, _: &TailwindBuilder) -> CssAttributes {
                 css_attributes! {
