@@ -1,6 +1,6 @@
 [package]
 name = "tailwind-css-fixes"
-version = "0.12.25"
+version = "0.12.26"
 authors = ["Aster <192607617@qq.com>", "greenzanman"]
 description = "Fixes for tailwind-css crate (Compile tailwind short instructions to css)" 
 repository = "https://github.com/oovm/tailwind-rs"
