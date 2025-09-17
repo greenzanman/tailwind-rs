@@ -7,6 +7,8 @@ use std::fmt::{Display, Formatter};
 pub struct PreflightSystem {
     /// Disables all preflight styles if set to true.
     pub disable: bool,
+    /// Enables default CSS variables like  --default-transition-duration: 150ms;
+    pub default_vars: bool,
     /// Resets box-sizing, margins, padding, and borders for all elements.
     pub global_reset: bool,
     /// Applies consistent line-height, font-family, and other root-level styles.
@@ -46,6 +48,7 @@ impl Default for PreflightSystem {
     fn default() -> Self {
         Self {
             disable: false,
+            default_vars: true,
             global_reset: true,
             html_base: true,
             unstyle_headings: true,
@@ -63,6 +66,26 @@ impl Default for PreflightSystem {
 }
 
 impl PreflightSystem {
+  const DEFAULT_VARS: &'static str = r#"
+:root, :host {
+--font-sans: ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+  'Noto Color Emoji';
+--font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New',
+  monospace;
+--ease-in: cubic-bezier(0.4, 0, 1, 1);
+--ease-out: cubic-bezier(0, 0, 0.2, 1);
+--default-transition-duration: 150ms;
+--default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+--default-font-family: var(--font-sans);
+--default-mono-font-family: var(--font-mono);
+@supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
+  *, ::before, ::after, ::backdrop {
+    --tw-ease: initial;
+  }
+}
+
+}
+"#;
     const GLOBAL_RESET: &'static str = r#"
 *,
 ::after,
@@ -263,6 +286,9 @@ impl Display for PreflightSystem {
         }
         
         // Generate the built-in styles based on the boolean flags
+        if self.default_vars {
+            writeln!(f, "{}", Self::DEFAULT_VARS.trim())?;
+        }
         if self.global_reset {
             writeln!(f, "{}", Self::GLOBAL_RESET.trim())?;
         }
