@@ -6,7 +6,13 @@ use crate::StandardValue;
 pub struct TailwindEase {
     kind: StandardValue,
 }
-crate::macros::sealed::keyword_instance!(TailwindEase => "transition-timing-function");
+crate::macros::sealed::keyword_instance!(TailwindEase => "transition-timing-function",
+    {
+        "ease-in" => "in",
+        "ease-in-out" => "in-out",
+        "ease-out" => "out",
+    }
+);
 
 impl Display for TailwindEase {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
@@ -17,19 +23,23 @@ impl Display for TailwindEase {
 impl TailwindEase {
     /// https://tailwindcss.com/docs/transition-timing-function
     pub fn parse(pattern: &[&str], arbitrary: &TailwindArbitrary) -> Result<Self> {
-        Ok(Self { kind: StandardValue::parser("ease", &Self::check_valid)(pattern, arbitrary)? })
+        let value = &StandardValue::parser("ease", &|s| Self::check_valid(s).is_ok())(pattern, arbitrary)?.to_string();
+        Ok(TailwindEase::from(value))
     }
+    
     /// https://tailwindcss.com/docs/transition-timing-function#arbitrary-values
     pub fn parse_arbitrary(arbitrary: &TailwindArbitrary) -> Result<Self> {
         StandardValue::parse_arbitrary(arbitrary).map(|kind| Self { kind })
     }
+    
+    /// Returns Ok(keyword) if valid, Err otherwise.
     /// https://developer.mozilla.org/en-US/docs/Web/CSS/transition-timing-function#syntax
-    pub fn check_valid(mode: &str) -> bool {
+    pub fn check_valid(mode: &str) -> Result<&str> {
         let set = BTreeSet::from_iter(vec![
-            "ease",
-            "ease-in",
-            "ease-in-out",
-            "ease-out",
+            "",
+            "in",
+            "in-out",
+            "out",
             "inherit",
             "initial",
             "linear",
@@ -38,6 +48,10 @@ impl TailwindEase {
             "step-start",
             "unset",
         ]);
-        set.contains(mode)
+        if set.contains(mode) {
+            Ok(mode)
+        } else {
+            syntax_error!("Invalid ease keyword: {}", mode)
+        }
     }
 }
