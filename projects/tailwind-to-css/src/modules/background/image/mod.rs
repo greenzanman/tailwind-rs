@@ -55,7 +55,7 @@ impl TailwindInstance for TailwindBackgroundImage {
                 css_attributes! { "background-image" => format!("url({})", url_value) }
             }
             BgImageKind::RepeatingLinear | BgImageKind::RepeatingRadial | BgImageKind::RepeatingConic => {
-                let arbitrary_gradient_val = self.value.as_ref().unwrap().to_string();
+                let arbitrary_gradient_val = self.value.as_ref().unwrap().to_string().replace('_', " ");
                 
                 let gradient_type = match self.kind {
                     BgImageKind::RepeatingLinear => "repeating-linear-gradient",
