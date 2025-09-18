@@ -18,6 +18,9 @@ enum BgImageKind {
     Linear,
     Radial,
     Conic,
+    RepeatingLinear,
+    RepeatingRadial,
+    RepeatingConic,
 }
 
 impl Display for TailwindBackgroundImage {
@@ -35,6 +38,9 @@ impl Display for TailwindBackgroundImage {
             (BgImageKind::Linear, None) => write!(f, "bg-linear"),
             (BgImageKind::Radial, None) => write!(f, "bg-radial"),
             (BgImageKind::Conic, None) => write!(f, "bg-conic"),
+            (BgImageKind::RepeatingLinear, Some(val)) => write!(f, "bg-[repeating-linear-gradient({})]", val),
+            (BgImageKind::RepeatingRadial, Some(val)) => write!(f, "bg-[repeating-radial-gradient({})]", val),
+            (BgImageKind::RepeatingConic, Some(val)) => write!(f, "bg-[repeating-conic-gradient({})]", val),
             _ => Ok(()), // Should not happen
         }
     }
@@ -47,6 +53,17 @@ impl TailwindInstance for TailwindBackgroundImage {
             BgImageKind::Url => {
                 let url_value = self.value.as_ref().unwrap().to_string();
                 css_attributes! { "background-image" => format!("url({})", url_value) }
+            }
+            BgImageKind::RepeatingLinear | BgImageKind::RepeatingRadial | BgImageKind::RepeatingConic => {
+                let arbitrary_gradient_val = self.value.as_ref().unwrap().to_string();
+                
+                let gradient_type = match self.kind {
+                    BgImageKind::RepeatingLinear => "repeating-linear-gradient",
+                    BgImageKind::RepeatingRadial => "repeating-radial-gradient",
+                    BgImageKind::RepeatingConic => "repeating-conic-gradient",
+                    _ => unreachable!(),
+                };
+                css_attributes! { "background-image" => format!("{}({})", gradient_type, arbitrary_gradient_val) }
             }
             BgImageKind::Linear | BgImageKind::Radial | BgImageKind::Conic => {
                 let gradient_type = match self.kind {
@@ -103,6 +120,7 @@ impl TailwindInstance for TailwindBackgroundImage {
 }
 
 impl TailwindBackgroundImage {
+    /// Should only be called if arbitrary.as_str().starts_with("url(") || arbitrary.as_str().contains("gradient(")
     pub fn parse(pattern: &[&str], arbitrary: &TailwindArbitrary, neg: Negative) -> Result<Self> {
         let (kind, rest) = match pattern {
             ["none"] => (BgImageKind::None, &pattern[1..]),
@@ -110,6 +128,9 @@ impl TailwindBackgroundImage {
             ["radial", rest @ ..] => (BgImageKind::Radial, rest),
             ["conic", rest @ ..] => (BgImageKind::Conic, rest),
             [] if arbitrary.as_str().starts_with("url(") => (BgImageKind::Url, pattern),
+            [] if arbitrary.as_str().starts_with("repeating-linear-gradient(") => (BgImageKind::RepeatingLinear, pattern),
+            [] if arbitrary.as_str().starts_with("repeating-radial-gradient(") => (BgImageKind::RepeatingRadial, pattern),
+            [] if arbitrary.as_str().starts_with("repeating-conic-gradient(") => (BgImageKind::RepeatingConic, pattern),
             _ => return syntax_error!("Unknown background-image pattern: {}", pattern.join("-")),
         };
 
@@ -118,6 +139,16 @@ impl TailwindBackgroundImage {
             BgImageKind::Url => {
                 let url = arbitrary.as_str().strip_prefix("url(").and_then(|s| s.strip_suffix(')')).unwrap_or("");
                 Some(UnitValue::Keyword(url.to_string()))
+            }
+            BgImageKind::RepeatingLinear | BgImageKind::RepeatingRadial | BgImageKind::RepeatingConic => {
+                let prefix = match kind {
+                    BgImageKind::RepeatingLinear => "repeating-linear-gradient(",
+                    BgImageKind::RepeatingRadial => "repeating-radial-gradient(",
+                    BgImageKind::RepeatingConic => "repeating-conic-gradient(",
+                    _ => unreachable!(),
+                };
+                let content = arbitrary.as_str().strip_prefix(prefix).and_then(|s| s.strip_suffix(')')).unwrap_or("");
+                Some(UnitValue::Keyword(content.to_string()))
             }
             BgImageKind::Linear 
             | BgImageKind::Radial 
