@@ -55,7 +55,9 @@ impl CssBundle {
     pub fn set_mode(&mut self, mode: CssInlineMode) {
         self.mode = mode
     }
+    /// Write this bundle's css to buffers
     pub fn write_css(&self, f: &mut (dyn Write)) -> Result<()> {
+        // Write the selector based on the mode
         let id = Self::obfuscate(self);
         match self.mode {
             CssInlineMode::None => unreachable!(),
@@ -64,6 +66,7 @@ impl CssBundle {
             CssInlineMode::DataKey => write!(f, "[data-tw-{}]", id)?,
             CssInlineMode::DataValue => write!(f, "[data-tw=\"{}\"]", id)?,
         }
+        // Write the selector's attributes/declarations
         f.write_char('{')?;
         write!(f, "{}", self.attribute)?;
         f.write_char('}')?;

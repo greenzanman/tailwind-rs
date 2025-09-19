@@ -24,6 +24,9 @@ mod important;
 mod instance;
 mod mode;
 
+/// Normalize class name as a valid CSS selector
+/// - Escapes non-alphanumeric characters with a backslash (`\`).
+/// - Replaces spaces with underscores (`_`).
 fn normalize_class_name(f: &mut (dyn Write), name: &str) -> Result<()> {
     for c in name.chars() {
         match c {

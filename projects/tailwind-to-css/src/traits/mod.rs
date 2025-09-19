@@ -13,9 +13,10 @@ pub trait TailwindInstance: Display {
     /// used to deduplication and marking
     #[inline]
     fn id(&self) -> String {
-        normalize_class_name(&self.to_string())
+        normalize_html_class_name(&self.to_string())
     }
-    /// used to deduplication and marking
+    /// Is this instance inlineable within html style="" attribute?
+    /// - (no nested rules, no pseudo-classes, etc)
     fn inlineable(&self) -> bool {
         true
     }
@@ -31,7 +32,7 @@ pub trait TailwindInstance: Display {
     fn selectors(&self, ctx: &TailwindBuilder) -> String {
         format!(".{}", self.id())
     }
-    /// Attributes in css
+    /// Attributes in css, representing contained CSS property-value(s)
     fn attributes(&self, ctx: &TailwindBuilder) -> CssAttributes;
     /// Additional css in bundle
     fn additional(&self, ctx: &TailwindBuilder) -> String {
@@ -39,8 +40,12 @@ pub trait TailwindInstance: Display {
     }
 }
 
-// Same as normalizing selector, but without escaping non-alphanumeric characters
-fn normalize_class_name(name: &str) -> String {
+/// Normalize classname to be used as a valid HTML classname.
+/// - Escapes non-alphanumeric characters with a backslash (`\`).
+/// - Replaces spaces with underscores (`_`).
+/// 
+/// Same as normalizing classname as CSS selector, but without escaping non-alphanumeric characters
+fn normalize_html_class_name(name: &str) -> String {
     let mut out = String::new();
     for c in name.chars() {
         match c {
