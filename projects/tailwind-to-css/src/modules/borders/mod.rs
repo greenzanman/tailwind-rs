@@ -20,7 +20,7 @@ pub use self::{
     },
 };
 use crate::{
-    css_attributes, syntax_error, AxisXY, CssAttributes, LengthUnit, Result, TailwindArbitrary, TailwindBuilder,
+    css_attributes, Result, syntax_error, AxisXY, CssAttributes, LengthUnit, TailwindArbitrary, TailwindBuilder,
     TailwindColor, TailwindInstance, UnitValue,
 };
 use std::{

@@ -1,1 +1,131 @@
+.ttB2ZcMUpvV {
+  :where(& > :not(:last-child)) {
+    border-color: #000;
+  }
+}
 
+.PoqzeqzTZQP {
+  :where(& > :not(:last-child)) {
+    border-color: #ffffff1a;
+  }
+}
+
+.TLKl1kxq50X {
+  :where(& > :not(:last-child)) {
+    --tw-border-style: dashed;
+    border-style: dashed;
+  }
+}
+
+.UkJ0gCbsusH {
+  :where(& > :not(:last-child)) {
+    border-color: #fee2e2;
+  }
+}
+
+.DObBbsqw8BG {
+  :where(& > :not(:last-child)) {
+    --tw-divide-x-reverse: 0;
+    border-inline-end-width: calc(1px * calc(1 - var(--tw-divide-x-reverse)));
+    border-inline-start-width: calc(1px * var(--tw-divide-x-reverse));
+    border-inline-style: var(--tw-border-style);
+  }
+}
+
+.MOCYka1VjIN {
+  :where(& > :not(:last-child)) {
+    --tw-divide-x-reverse: 0;
+    border-inline-end-width: calc(2px * calc(1 - var(--tw-divide-x-reverse)));
+    border-inline-start-width: calc(2px * var(--tw-divide-x-reverse));
+    border-inline-style: var(--tw-border-style);
+  }
+}
+
+.MMClrw2kpxA {
+  :where(& > :not(:last-child)) {
+    --tw-divide-x-reverse: 0;
+    border-inline-end-width: calc(16rem * calc(1 - var(--tw-divide-x-reverse)));
+    border-inline-start-width: calc(16rem * var(--tw-divide-x-reverse));
+    border-inline-style: var(--tw-border-style);
+  }
+}
+
+.X5BoRKbKvZU {
+  :where(& > :not(:last-child)) {
+    --tw-divide-x-reverse: 0;
+    border-inline-end-width: calc(5px * calc(1 - var(--tw-divide-x-reverse)));
+    border-inline-start-width: calc(5px * var(--tw-divide-x-reverse));
+    border-inline-style: var(--tw-border-style);
+  }
+}
+
+.oH9nkOD5SOC {
+  :where(& > :not(:last-child)) {
+    --tw-divide-x-reverse: 0;
+    border-inline-end-width: calc(var(--my-custom-x) * calc(1 - var(--tw-divide-x-reverse)));
+    border-inline-start-width: calc(var(--my-custom-x) * var(--tw-divide-x-reverse));
+    border-inline-style: var(--tw-border-style);
+  }
+}
+
+.IOgh6Sl8yVF {
+  :where(& > :not(:last-child)) {
+    --tw-divide-x-reverse: 1;
+  }
+}
+
+.kiTTPdWAwHH {
+  :where(& > :not(:last-child)) {
+    --tw-divide-y-reverse: 0;
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: calc(1px * calc(1 - var(--tw-divide-y-reverse)));
+    border-top-style: var(--tw-border-style);
+    border-top-width: calc(1px * var(--tw-divide-y-reverse));
+  }
+}
+
+.jyCpd1eg1Ka {
+  :where(& > :not(:last-child)) {
+    --tw-divide-y-reverse: 0;
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: calc(2px * calc(1 - var(--tw-divide-y-reverse)));
+    border-top-style: var(--tw-border-style);
+    border-top-width: calc(2px * var(--tw-divide-y-reverse));
+  }
+}
+
+.OQtMuO4gphL {
+  :where(& > :not(:last-child)) {
+    --tw-divide-y-reverse: 0;
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: calc(16rem * calc(1 - var(--tw-divide-y-reverse)));
+    border-top-style: var(--tw-border-style);
+    border-top-width: calc(16rem * var(--tw-divide-y-reverse));
+  }
+}
+
+.i6gRogSrPQM {
+  :where(& > :not(:last-child)) {
+    --tw-divide-y-reverse: 0;
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: calc(5px * calc(1 - var(--tw-divide-y-reverse)));
+    border-top-style: var(--tw-border-style);
+    border-top-width: calc(5px * var(--tw-divide-y-reverse));
+  }
+}
+
+.uvhJFIdannO {
+  :where(& > :not(:last-child)) {
+    --tw-divide-y-reverse: 0;
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: calc(var(--my-custom-y) * calc(1 - var(--tw-divide-y-reverse)));
+    border-top-style: var(--tw-border-style);
+    border-top-width: calc(var(--my-custom-y) * var(--tw-divide-y-reverse));
+  }
+}
+
+.J56K1YIGkzD {
+  :where(& > :not(:last-child)) {
+    --tw-divide-y-reverse: 1;
+  }
+}
