@@ -2,7 +2,10 @@ use super::*;
 
 impl Display for CssAttributes {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        // Write normal attributes (based on Display impl of ImportantMap):
+        // - property: value;
         write!(f, "{}", self.normal)?;
+        // - normal attribiutes with special formats:
         if !self.transforms.is_empty() {
             write!(f, "transform:{}", self.transforms)?
         }
@@ -11,6 +14,11 @@ impl Display for CssAttributes {
         }
         if !self.backdrop_filter.is_empty() {
             write!(f, "backdrop-filter:{}", self.backdrop_filter)?
+        }
+
+        // Write each of the nested rules
+        for (selector, nested_attrs) in &self.nested {
+            write!(f, "{} {{ {} }}", selector, nested_attrs)?;
         }
         Ok(())
     }

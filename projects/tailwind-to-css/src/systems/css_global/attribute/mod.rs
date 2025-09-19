@@ -7,10 +7,14 @@ mod traits;
 /// In principle, each css property will only appear once, and the one set later will override the previous one.
 #[derive(Debug, Clone, Default, Ord, PartialOrd, Eq, PartialEq, Hash)]
 pub struct CssAttributes {
+    /// Normal css attributes with property and value.
     normal: ImportantMap,
     transforms: ImportantSet,
     backdrop_filter: ImportantSet,
     filter: ImportantSet,
+    /// The key is the nested selector string, e.g., ":where(& > :not(:last-child))"
+    /// The value is a CssAttributes for that nested rule.
+    nested: BTreeMap<String, Box<CssAttributes>>, 
 }
 
 impl CssAttributes {
@@ -47,5 +51,17 @@ impl CssAttributes {
         for i in items {
             self.insert(i.0, i.1);
         }
+    }
+
+    /// Inserts a nested selector and its attributes.
+    ///
+    /// # Arguments
+    /// * `selector`: The nested selector string (e.g., ":where(& > :not(:last-child))")
+    /// * `attributes`: The CssAttributes to associate with the selector
+    pub fn insert_nested<S>(&mut self, selector: S, attributes: CssAttributes)
+    where
+        S: Into<String>,
+    {
+        self.nested.insert(selector.into(), Box::new(attributes));
     }
 }
