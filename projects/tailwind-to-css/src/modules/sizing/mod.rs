@@ -13,7 +13,7 @@ enum TailwindSizingKind {
     MaxHeight,
 }
 
-#[derive(Copy, Clone, Debug)]
+#[derive(Clone, Debug)]
 enum SizingUnit {
     None,
     Min,
@@ -24,10 +24,11 @@ enum SizingUnit {
     Screen,
     Fraction(usize, usize),
     Length(LengthUnit),
+    Arbitrary(TailwindArbitrary),
 }
 
 #[doc = include_str!("sizing.md")]
-#[derive(Copy, Clone, Debug)]
+#[derive(Clone, Debug)]
 pub struct TailwindSizing {
     kind: TailwindSizingKind,
     size: SizingUnit,

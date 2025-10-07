@@ -19,10 +19,10 @@ impl SizingUnit {
         }
     }
     pub fn parse_arbitrary(arbitrary: &TailwindArbitrary) -> Result<Self> {
-        Self::maybe_fraction(arbitrary).or_else(|_| Self::maybe_no_unit(arbitrary)).or_else(|_| Self::maybe_length(arbitrary))
+        Self::maybe_fraction(arbitrary).or_else(|_| Self::maybe_no_unit(arbitrary)).or_else(|_| Self::maybe_length(arbitrary)).or_else(|_| Self::maybe_arbitrary(arbitrary))
         // ! Does not match for the following test cases:
-        // parse_arbitrary: input=TailwindArbitrary { inner: "unset" }
         // parse_arbitrary: input=TailwindArbitrary { inner: "xs" }
+        //  - aka for max-w-sm and min-w-sm
     }
     #[inline]
     fn maybe_length(arbitrary: &TailwindArbitrary) -> Result<Self> {
@@ -37,6 +37,11 @@ impl SizingUnit {
     fn maybe_fraction(arbitrary: &TailwindArbitrary) -> Result<Self> {
         let (a, b) = arbitrary.as_fraction()?;
         Ok(Self::Fraction(a, b))
+    }
+    #[inline]
+    fn maybe_arbitrary(arbitrary: &TailwindArbitrary) -> Result<Self> {
+        println!("maybe_arbitrary: input={:?}", arbitrary.as_str());
+        Ok(Self::Arbitrary(arbitrary.clone()))
     }
 }
 

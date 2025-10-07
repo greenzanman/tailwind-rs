@@ -1,3 +1,7 @@
+.height-\[calc\(100\%_-_1rem\)\] {
+  height: calc(100% - 1rem);
+}
+
 .height-screen {
   height: 100vh;
 }
@@ -14,6 +18,10 @@
   max-width: 50%;
 }
 
+.max-width-\[xs\] {
+  max-width: xs;
+}
+
 .max-width-none {
   max-width: none;
 }
@@ -28,6 +36,10 @@
 
 .min-width-\[47vh\] {
   min-width: 47vh;
+}
+
+.min-width-\[unset\] {
+  min-width: unset;
 }
 
 .min-width-fit {
@@ -80,6 +92,10 @@
 
 .width-\[1px\] {
   width: 1px;
+}
+
+.width-\[unset\] {
+  width: unset;
 }
 
 .width-auto {

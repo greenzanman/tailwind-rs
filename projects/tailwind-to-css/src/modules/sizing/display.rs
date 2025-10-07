@@ -12,6 +12,7 @@ impl Display for SizingUnit {
             Self::Screen => write!(f, "screen"),
             Self::Fraction(numerator, denominator) => write!(f, "{}/{}", numerator, denominator),
             Self::Length(x) => write!(f, "[{}]", x),
+            Self::Arbitrary(x) => write!(f, "{}", x),
         }
     }
 }
@@ -39,6 +40,7 @@ impl SizingUnit {
                 format!("{}%", (*numerator as f32 / *denominator as f32) * 100.0)
             }
             (Self::Length(x), _) => format!("{}", x),
+            (Self::Arbitrary(x), _) => format!("{}", x.get_properties()),
         }
     }
 }
