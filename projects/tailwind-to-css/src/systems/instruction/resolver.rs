@@ -140,6 +140,7 @@ impl TailwindInstruction {
             ["shadow", rest @ ..] => Self::shadow_adaptor(rest, arbitrary)?,
             ["opacity", rest @ ..] => TailwindOpacity::parse(rest, arbitrary, false)?.boxed(),
             ["mix", "blend", rest @ ..] => TailwindBlend::parse(rest, arbitrary)?.boxed(),
+            ["mask", rest @ ..] => mask_adaptor(rest, arbitrary, neg)?,
             // Filters System
             ["blur", rest @ ..] => TailwindBlur::parse(rest, arbitrary, false)?.boxed(),
             ["brightness", rest @ ..] => TailwindBrightness::parse(rest, arbitrary, false)?.boxed(),

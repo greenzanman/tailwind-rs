@@ -1,9 +1,11 @@
+pub(crate) use self::mask::mask_adaptor;
+
 pub use self::{
     box_shadow::TailwindShadow, mix_blend::TailwindBlend, mix_blend_bg::TailwindBackgroundBlend, opacity::TailwindOpacity,
-    shadow_color::TailwindShadowColor,
+    shadow_color::TailwindShadowColor, mask::mask_image::TailwindMaskImage, 
 };
 use crate::{
-    css_attributes, Backdrop, CssAttributes, NumericValue, Result, StandardValue, TailwindArbitrary, TailwindBuilder,
+    css_attributes, syntax_error, Backdrop, CssAttributes, NumericValue, Result, Negative, UnitValue, StandardValue, TailwindArbitrary, TailwindBuilder,
     TailwindColor, TailwindInstance,
 };
 use std::{
@@ -15,3 +17,4 @@ mod mix_blend;
 mod mix_blend_bg;
 mod opacity;
 mod shadow_color;
+mod mask;
